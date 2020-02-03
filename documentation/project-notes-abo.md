@@ -18,6 +18,7 @@ In weeks four and five, we had several meetings where we discussed the different
 ### Content
 
 
+
 ## Creating User-Friendly Web-Design
 
 
@@ -35,6 +36,7 @@ In weeks four and five, we had several meetings where we discussed the different
 
 
 ### usability 
+
 
 #### Do not make me think principle. book by Steve Krug
 - All kinds of things on a Web page can make us stop and think unnecessarily. Take names, for example.
