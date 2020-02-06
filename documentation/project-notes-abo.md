@@ -64,3 +64,10 @@ Distinct headers for text. h1, h2 ,h3
 ### Number of clicks to get get anywhere
 - number of clicks is a metric used by some websites
     - Number of clicks is not important as long as each click is painless and they (the user) have continuted confidence that they're on the right track.
+
+
+
+-- why REST instead of GraphQL
+
+Rest uses path + http method to identirfy resources or actions. This is intuitive and easy to learn. 
+Rest API is stateless and decoupled from any frontend. 
