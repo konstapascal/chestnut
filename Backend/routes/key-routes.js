@@ -2,13 +2,15 @@ const express = require('express');
 
 const router = express.Router();
 
-const keyKontrollers = require('../controllers/keys-controllers');
+const keyControllers = require('../controllers/keys-controllers');
 
-router.get('/:kid',  keyKontrollers.getKeyById);
+router.get('/:kid',  keyControllers.getKeyById);
 
-router.get('/user/:uid', keyKontrollers.getKeyByUserId);
+router.get('/user/:uid', keyControllers.getKeysByUserId);
 
-router.post('/', keyKontrollers.genrateKey);
+router.post('/', keyControllers.genrateKey);
+
+router.delete('/:kid', keyControllers.deleteKey);
 
 module.exports = router;
 

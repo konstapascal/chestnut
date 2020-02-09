@@ -1,14 +1,17 @@
+const uuid = require('uuid/v4');
+
 const HttpError = require('../models/http-error');
 
 
-const example_keys = [
+
+let example_keys = [
     {
         id: '1',
         title: 'MyKey',
         value: 'jkdlfdsakjfhdslkjbflsdjkbfldshfbljkdsgfldsagbflkjdsagflkjdsgaflsa',
-        userId: 1
+        userId: '1'
     }
-]
+];
 
 
 
@@ -28,24 +31,25 @@ const getKeyById = (req, res, next) => {
     res.json({key: key});
 };
 
-const getKeyByUserId = (req, res, next) => {
+const getKeysByUserId = (req, res, next) => {
     const userId = req.params.uid;
 
-    const key = example_keys.find(k => {
-        return k.id === userId;
+    const keys = example_keys.filter(k => {
+        return k.userId === userId;
     });
 
-    if (!key) {
+    if (!keys || keys.length === 0) {
         //next is used for asynchronos actions instead of THROW 
-        return next(new HttpError('Could not find a key for the given user id', 404));
+        return next(new HttpError('Could not find keys for the given user id', 404));
     }
 
-    res.json({key: key});
+    res.json({keys: keys});
 };
 
 const genrateKey = (req, res, next) => {
     const { title, value, userId } = req.body;
     const generatedKey = {
+        id: uuid(),
         title,
         value,
         userId
@@ -56,6 +60,13 @@ const genrateKey = (req, res, next) => {
     res.status(201).json({key: generatedKey});
  };
 
+ const deleteKey = (req, res, next) => {
+    const keyId = req.params.pid;
+    example_keys = example_keys.filter(p => p.id !== keyId);
+    res.status(200).json({ message: 'Deleted key.' });
+  };
+
 exports.getKeyById = getKeyById;
-exports.getKeyByUserId = getKeyByUserId;
+exports.getKeysByUserId = getKeysByUserId;
 exports.genrateKey = genrateKey;
+exports.deleteKey = deleteKey;
