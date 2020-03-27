@@ -55,10 +55,22 @@ const Auth = () => {
     setIsLoginMode(prevMode => !prevMode);
   };
 
-  const authSubmitHandler = event => {
+  const authSubmitHandler =  event => {
     event.preventDefault();
-    console.log(formState.inputs);
-    auth.login();
+    
+    // fetch('http//localhost:5000/api/users/signup', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     userName: formState.inputs.userName.value,
+    //     email: formState.inputs.email.value,
+    //     password: formState.inputs.password.value
+    //   })
+    // });
+
+    auth.login(); 
   };
 
   return (

@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-./Frontend/node_modules
-./Frontend/semantic
+/node_modules
+/semantic
 /.pnp
 .pnp.js
 
