@@ -12,6 +12,13 @@ const app = express();
 //extract any json coming, calls next automatically
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", '*');
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.setHeader('Access-Control-Allow-Methods', "GET, POST, PATCH, DELETE");
+  next();
+});
+
 app.use("/api/keys", keyRoutes);
 app.use("/api/users", usersRoutes);
 
@@ -31,10 +38,11 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://abz:MyPass1234@chestnutcluster-pkilp.mongodb.net/chestnut?retryWrites=true&w=majority', { useNewUrlParser: true,  useUnifiedTopology: true})
+  .connect(
+    "mongodb+srv://abz:MyPass1234@chestnutcluster-pkilp.mongodb.net/chestnut?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => {
     app.listen(5000);
   })
   .catch(err => console.log(err));
-
-  

@@ -1,14 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-<<<<<<< HEAD:.gitignore
-./Frontend/node_modules
-./Frontend/semantic
+/node_modules
 /.pnp
-=======
-node_modules
-.pnp
->>>>>>> 9007147c3913cbb14528a9190cdee57f724c7ab9:Frontend/.gitignore
 .pnp.js
 
 

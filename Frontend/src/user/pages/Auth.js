@@ -36,7 +36,7 @@ const Auth = () => {
       setFormData(
         {
           ...formState.inputs,
-          name: undefined
+          userName: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -44,7 +44,7 @@ const Auth = () => {
       setFormData(
         {
           ...formState.inputs,
-          name: {
+          userName: {
             value: '',
             isValid: false
           }
@@ -55,22 +55,32 @@ const Auth = () => {
     setIsLoginMode(prevMode => !prevMode);
   };
 
-  const authSubmitHandler =  event => {
+  const authSubmitHandler = async event => {
     event.preventDefault();
-    
-    // fetch('http//localhost:5000/api/users/signup', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     userName: formState.inputs.userName.value,
-    //     email: formState.inputs.email.value,
-    //     password: formState.inputs.password.value
-    //   })
-    // });
 
-    auth.login(); 
+    if (isLoginMode) {
+    } else {
+      try {
+        const response = await fetch('http://localhost:5000/api/users/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userName: formState.inputs.userName.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+          })
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    auth.login();
   };
 
   return (
@@ -81,11 +91,11 @@ const Auth = () => {
         {!isLoginMode && (
           <Input
             element="input"
-            id="name"
+            id="userName"
             type="text"
-            label="Your Name"
+            label="Your username"
             validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter a name."
+            errorText="Please enter a username."
             onInput={inputHandler}
           />
         )}

@@ -28,7 +28,7 @@ const App = () => {
 
   if (isLoggedIn) {
     routes = (
-      <React.Fragment>
+      <Switch>
         <Route path="/" exact>
           <Users />
         </Route>
@@ -39,11 +39,11 @@ const App = () => {
           <NewKey />
         </Route>
         <Redirect to="/" />
-      </React.Fragment>
+      </Switch>
     );
   } else {
     routes = (
-      <React.Fragment>
+      <Switch>
         <Route path="/" exact>
           <Users />
         </Route>
@@ -51,7 +51,7 @@ const App = () => {
           <Auth />
         </Route>
         <Redirect to="/auth" />
-      </React.Fragment>
+      </Switch>
     );
   }
 
@@ -62,7 +62,7 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>
-          <Switch>{routes}</Switch>
+          {routes}
         </main>
       </Router>
     </AuthContext.Provider>
