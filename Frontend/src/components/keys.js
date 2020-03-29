@@ -6,9 +6,9 @@ export default class Keys extends Component {
         return (
             <>
                 <Page title="Keys"/>
-                <p>Functionalities to implement:</p>
+                <p>Functionalities here:</p>
                 <ul>
-                    <li>View keypairs</li>
+                    <li>View keypairs in a list</li>
                     <li>Generate, import, delete keypairs</li>
                 </ul>
             </>

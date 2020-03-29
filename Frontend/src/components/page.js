@@ -4,13 +4,14 @@ import React from 'react';
 
 export default function Page ({ title }) {
     return(
-      <div className="App">
-        <div className="App-header">
+      <div>
+        <div>
           <h2>{title}</h2>
         </div>
-        <p className="App-intro">
+        <p>
           {title} page.
         </p>
+        <br/>
       </div>
     )
 };

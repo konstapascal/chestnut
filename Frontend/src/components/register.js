@@ -8,7 +8,7 @@ const RegisterForm = () => (
         Register new user
       </Header>
       <Form size='large'>
-        <Segment stacked>
+        <Segment stacked padded>
           <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
           <Form.Input fluid icon='user outline' iconPosition='left' placeholder='E-mail address' />
           <Form.Input
