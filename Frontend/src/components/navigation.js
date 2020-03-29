@@ -21,7 +21,10 @@ export default class Navigation extends Component {
                         <Nav.Link href="/search">Search Users</Nav.Link>
                     </NavItem>
                     <NavItem >
-                        <Nav.Link href="/test">Test Page</Nav.Link>
+                        <Nav.Link href="/register">Register</Nav.Link>
+                    </NavItem>
+                    <NavItem >
+                        <Nav.Link href="/login">Login</Nav.Link>
                     </NavItem>
                     </Nav>
                 </Navbar.Collapse>

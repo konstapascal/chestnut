@@ -4,8 +4,9 @@ import Keys from './keys';
 import Error from './error'
 import Application from './application'
 import Settings from './settings'
-import Search from './search';
 import Navigation from './navigation'
+import LoginForm from './login';
+import RegisterForm from './register';
 
 
 export default class App extends Component {
@@ -18,7 +19,8 @@ export default class App extends Component {
                         <Route exact path='/' component={Application} />
                         <Route exact path='/keys' component={Keys} />
                         <Route exact path='/settings' component={Settings} />
-                        <Route exact path='/search' component={Search} />
+                        <Route exact path='/login' component={LoginForm} />
+                        <Route exact path='/register' component={RegisterForm} />
                         <Route component={Error} />
                     </Switch>
                 </div>
