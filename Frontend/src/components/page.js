@@ -11,7 +11,6 @@ export default function Page ({ title }) {
         <p>
           {title} page.
         </p>
-        <br/>
       </div>
     )
 };

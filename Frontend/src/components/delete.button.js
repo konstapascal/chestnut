@@ -11,7 +11,7 @@ class DeleteButton extends Component {
   render() {
     return (
       <div>
-        <Button negative  onClick={this.open}>Delete Account</Button>
+        <Button negative size='medium' onClick={this.open}>Delete Account</Button>
         <Confirm
           header='Account deletion'
           size='tiny'

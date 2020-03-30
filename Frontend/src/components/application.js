@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import Page from './page'
+import ApplicationMenu from './app.menu'
 
 export default class Application extends Component {
     render() {
         return (
             <>
-                <Page title="Application"/>
-                <p>Main app page.</p>
+                <h3>Main application page</h3>
+                <p>Choose one of the following algorithms and desired action to go further:</p>
+                <ApplicationMenu />
             </>
         )
     }
