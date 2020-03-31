@@ -53,7 +53,8 @@ export default class Navigation extends Component {
               as={ NavLink } exact to='/register'
               name='Register'
               active={activeItem === 'register'}
-              onClick={this.handleItemClick}>
+              onClick={this.handleItemClick}
+              position='right'>
             </Menu.Item>
             <Menu.Item
               as={ NavLink } exact to='/login'
@@ -61,7 +62,7 @@ export default class Navigation extends Component {
               active={activeItem === 'login'}
               onClick={this.handleItemClick}
             />
-            <MenuItem position='right'>
+            <MenuItem>
               <DarkModeButton />
             </MenuItem>
             <MenuItem>
