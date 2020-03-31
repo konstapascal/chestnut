@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Confirm } from 'semantic-ui-react'
 
-class DeleteButton extends Component {
+export default class DeleteButton extends Component {
 
   state = { open: false }
 
@@ -24,5 +24,3 @@ class DeleteButton extends Component {
     )
   }
 }
-
-export default DeleteButton

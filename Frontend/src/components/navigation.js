@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, MenuItem } from 'semantic-ui-react'
 import { NavLink, Link } from 'react-router-dom'
 import logo from '../images/chestnut.png'
+import DarkModeButton from './dark.mode.button'
+import LanguageButton from './language.button'
 
 export default class Navigation extends Component {
     
-    state = { activeItem: 'home' }
+    state = { activeItem: '' }
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
@@ -42,7 +44,12 @@ export default class Navigation extends Component {
               onClick={this.handleItemClick}
             />
             <Menu.Item
-              position= '' //add right
+              as={ NavLink } exact to='/adminsettings'
+              name='Admin Settings'
+              active={activeItem === 'adminsettings'}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
               as={ NavLink } exact to='/register'
               name='Register'
               active={activeItem === 'register'}
@@ -54,6 +61,12 @@ export default class Navigation extends Component {
               active={activeItem === 'login'}
               onClick={this.handleItemClick}
             />
+            <MenuItem position='right'>
+              <DarkModeButton />
+            </MenuItem>
+            <MenuItem>
+              <LanguageButton />
+            </MenuItem>
           </Menu> 
         )
     }
