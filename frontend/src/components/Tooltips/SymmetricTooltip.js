@@ -12,16 +12,14 @@ const SymmetricTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						<b>Symmetric Encryption</b> is a type of encryption
-						where only one key (a <b>secret key</b> or{' '}
-						<b>password</b>) is used to both encrypt and decrypt
-						information.
+						<b>Symmetric Encryption</b> is a type of encryption where only
+						one key (a <b>secret key</b> or <b>password</b>) is used to
+						both encrypt and decrypt information.
 					</p>
 					<p>
-						The entities communicating via{' '}
-						<b>symmetric encryption</b> must exchange the key or
-						password so that it can be used in the decryption
-						process.
+						The entities communicating via <b>symmetric encryption</b>{' '}
+						must exchange the key or password so that it can be used in
+						the decryption process.
 					</p>
 				</div>
 			}>

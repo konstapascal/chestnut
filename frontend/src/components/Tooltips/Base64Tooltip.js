@@ -12,10 +12,9 @@ const Base64Tooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						<b>Base64</b> is an encoding and decoding technique used
-						to convert binary data to an American Standard for
-						Information Interchange (ASCII) text format, and vice
-						versa.
+						<b>Base64</b> is an encoding and decoding technique used to
+						convert binary data to an American Standard for Information
+						Interchange (ASCII) text format, and vice versa.
 					</p>
 				</div>
 			}>

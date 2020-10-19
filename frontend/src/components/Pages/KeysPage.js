@@ -28,13 +28,11 @@ const KeysPage = () => {
 					<Segment style={{ padding: '1.5rem' }}>
 						<Form>
 							<Header as='h2' dividing>
-								{selectedKey.Name
-									? selectedKey.Name
-									: 'Select keypair'}
+								{selectedKey.Name ? selectedKey.Name : 'Select keypair'}
 							</Header>
 							<p style={{ paddingBottom: '1rem' }}>
-								Select a keypair from the list on the left to
-								view its keys.
+								Select a keypair from the list on the left to view its
+								keys.
 							</p>
 							<Form.TextArea
 								spellCheck={false}

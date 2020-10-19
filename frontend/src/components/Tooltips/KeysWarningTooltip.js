@@ -12,8 +12,8 @@ const KeysWarningTooltip = () => {
 						padding: '.25rem'
 					}}>
 					<p>
-						Imported keys are stored in <b>localStorage</b> and will
-						not persist across devices.
+						Imported keys are stored in <b>localStorage</b> and will not
+						persist across devices.
 					</p>
 				</div>
 			}>

@@ -83,9 +83,8 @@ const UsersPage = () => {
 		<div style={{ margin: '3rem' }}>
 			<h1>List of users</h1>
 			<p>
-				This is a list of all registered users and their public keys.
-				You may filter users and easily add their public keys to your
-				keys list.
+				This is a list of all registered users and their public keys. You
+				may filter users and easily add their public keys to your keys list.
 			</p>
 			<Grid stackable columns={1}>
 				<Grid.Column style={{ width: '40vw', minWidth: '400px' }}>
@@ -112,13 +111,9 @@ const UsersPage = () => {
 							{loadedUsers &&
 								filteredUsers.map(user => (
 									<List.Item key={user.ID}>
-										<List.Header as='h4'>
-											{user.Username}
-										</List.Header>
+										<List.Header as='h4'>{user.Username}</List.Header>
 										{user.Keypairs.map(key => (
-											<List.List
-												key={key.KeypairID}
-												divided>
+											<List.List key={key.KeypairID} divided>
 												<List.Item>
 													<Button
 														onClick={() =>
@@ -130,33 +125,26 @@ const UsersPage = () => {
 																key.PublicKey
 															)
 														}
-														disabled={isKeyAdded(
-															key.PublicKey
-														)}
+														disabled={isKeyAdded(key.PublicKey)}
 														content={
-															isKeyAdded(
-																key.PublicKey
-															) ? (
+															isKeyAdded(key.PublicKey) ? (
 																<span
 																	style={{
-																		color:
-																			'#FFF'
+																		color: '#FFF'
 																	}}>
 																	Added
 																</span>
 															) : (
 																<span
 																	style={{
-																		color:
-																			'#FFF'
+																		color: '#FFF'
 																	}}>
 																	Add
 																</span>
 															)
 														}
 														style={{
-															backgroundColor:
-																'#14872f'
+															backgroundColor: '#14872f'
 														}}
 														size='small'
 														floated='right'
@@ -167,9 +155,7 @@ const UsersPage = () => {
 														verticalAlign='middle'
 													/>
 													<Item.Content>
-														<List.Header>
-															{key.Name}
-														</List.Header>
+														<List.Header>{key.Name}</List.Header>
 														<List.Description>
 															Length: {key.Length}
 														</List.Description>

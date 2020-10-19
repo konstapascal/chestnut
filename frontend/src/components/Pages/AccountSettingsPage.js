@@ -42,15 +42,11 @@ const AccountSettingsPage = () => {
 					</Button>
 				}
 				open={ModalOpen === true}>
-				<Header
-					color='red'
-					icon='warning sign'
-					content='Delete account?'
-				/>
+				<Header color='red' icon='warning sign' content='Delete account?' />
 				<Modal.Content>
 					<p>
-						This is a <b>permanent</b> action and will delete both
-						your account and your keys.
+						This is a <b>permanent</b> action and will delete both your
+						account and your keys.
 					</p>
 					<p>
 						Are you sure you want to <b>delete</b> your account?

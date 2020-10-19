@@ -13,8 +13,8 @@ const EncryptionTooltip = () => {
 					}}>
 					<p>
 						This process converts the original representation of the
-						information, known as <b>plaintext</b>, into an
-						alternative form known as <b>ciphertext</b>.
+						information, known as <b>plaintext</b>, into an alternative
+						form known as <b>ciphertext</b>.
 					</p>
 				</div>
 			}>

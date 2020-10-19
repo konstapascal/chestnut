@@ -12,16 +12,15 @@ const ChecksumTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						A <b>checksum</b> is a value used to verify the
-						integrity of a file or a data transfer. In other words,
-						it is a sum that checks the validity of data.
+						A <b>checksum</b> is a value used to verify the integrity of a
+						file or a data transfer. In other words, it is a sum that
+						checks the validity of data.
 					</p>
 
 					<p>
-						To produce a checksum, you run a program that puts that
-						file through an algorithm. Typical algorithms used for
-						this include <b>MD5</b>, <b>SHA-1</b>, <b>SHA-256</b>,
-						and <b>SHA-512</b>.
+						To produce a checksum, you run a program that puts that file
+						through an algorithm. Typical algorithms used for this include{' '}
+						<b>MD5</b>, <b>SHA-1</b>, <b>SHA-256</b>, and <b>SHA-512</b>.
 					</p>
 				</div>
 			}>

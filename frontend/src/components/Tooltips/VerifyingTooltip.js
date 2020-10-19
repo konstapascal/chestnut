@@ -12,9 +12,9 @@ const VerifyingTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						<b>Verifying</b> a signature means to check the
-						signature validity and whether any changes have been
-						made to the message or document since it was signed.
+						<b>Verifying</b> a signature means to check the signature
+						validity and whether any changes have been made to the message
+						or document since it was signed.
 					</p>
 				</div>
 			}>

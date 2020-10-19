@@ -88,9 +88,7 @@ const GenerateKey = ({ handleRefresh }) => {
 			)
 			.then(res => {
 				setIsLoading(false);
-				setStatusMessage(
-					`Keypair ${keyName} was generated successfully!`
-				);
+				setStatusMessage(`Keypair ${keyName} was generated successfully!`);
 				handleRefresh();
 			})
 			.catch(err => {
@@ -104,8 +102,7 @@ const GenerateKey = ({ handleRefresh }) => {
 			<Form>
 				<Form.Field>
 					<p style={{ paddingBottom: '1rem' }}>
-						Create a new key with desired length to add to your
-						list.
+						Create a new key with desired length to add to your list.
 					</p>
 					<Input
 						id='keyname'
@@ -125,9 +122,7 @@ const GenerateKey = ({ handleRefresh }) => {
 					options={lengthOptions}
 					defaultValue={lengthOptions[1].value}
 					value={keyLength}
-					onChange={(e, { value }) =>
-						setKeyLength(value)
-					}></Form.Select>
+					onChange={(e, { value }) => setKeyLength(value)}></Form.Select>
 
 				{isLoading ? (
 					<Button onClick={generateKey} color='green' disabled>

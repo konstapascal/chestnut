@@ -46,12 +46,11 @@ const RsaSigning = ({ setMdData }) => {
 		<div style={{ margin: '1.5rem' }}>
 			<SigningTooltip />
 			<p>
-				Selected key:{' '}
-				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Write plain text in the first area and it will be signed using
-				your selected keypairs private key.
+				Write plain text in the first area and it will be signed using your
+				selected keypairs private key.
 			</p>
 
 			<Form>

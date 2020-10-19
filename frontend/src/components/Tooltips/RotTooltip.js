@@ -12,14 +12,13 @@ const RotTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						<b>ROT13</b> ("rotate by 13 places", sometimes
-						hyphenated ROT-13) is a simple letter substitution
-						cipher that replaces a letter with the 13th letter after
-						it, in the alphabet.
+						<b>ROT13</b> ("rotate by 13 places", sometimes hyphenated
+						ROT-13) is a simple letter substitution cipher that replaces a
+						letter with the 13th letter after it, in the alphabet.
 					</p>
 					<p>
-						ROT13 is a special case of the <b>Caesar cipher</b>{' '}
-						which was developed in ancient Rome.
+						ROT13 is a special case of the <b>Caesar cipher</b> which was
+						developed in ancient Rome.
 					</p>
 				</div>
 			}>

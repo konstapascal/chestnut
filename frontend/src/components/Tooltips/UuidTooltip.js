@@ -12,13 +12,12 @@ const UuidTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						A <b>universally unique identifier</b> (UUID) is a
-						128-bit number used to identify information in computer
-						systems.
+						A <b>universally unique identifier</b> (UUID) is a 128-bit
+						number used to identify information in computer systems.
 					</p>
 					<p>
-						While the probability that a UUID will be duplicated is
-						not zero, it is close enough to zero to be negligible.
+						While the probability that a UUID will be duplicated is not
+						zero, it is close enough to zero to be negligible.
 					</p>
 				</div>
 			}>

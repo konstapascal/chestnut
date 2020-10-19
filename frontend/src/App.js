@@ -63,7 +63,7 @@ const App = () => {
 		isLoggedIn: loggedIn,
 		isAdmin: isAdmin,
 		login: login,
-		logout: logout,
+		logout: logout
 	};
 
 	// Setting routes based on if logged in or not

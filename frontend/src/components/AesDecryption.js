@@ -54,8 +54,8 @@ const AesDecryption = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<DecryptionTooltip />
 			<p>
-				Paste in your decrypted data, write in the correct password and
-				it will be decrypted using the AES algorithm.
+				Paste in your decrypted data, write in the correct password and it
+				will be decrypted using the AES algorithm.
 			</p>
 
 			<Form>

@@ -12,14 +12,14 @@ const AsymmetricTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						<b>Asymmetric Encryption</b> is a form of encryption
-						where keys come in <b>pairs</b>. What one key encrypts,
-						only the other can decrypt.
+						<b>Asymmetric Encryption</b> is a form of encryption where
+						keys come in <b>pairs</b>. What one key encrypts, only the
+						other can decrypt.
 					</p>
 					<p>
-						This is also known as <b>Public Key Cryptography</b>,
-						since users typically create a matching key pair, and
-						make one public while keeping the other secret.
+						This is also known as <b>Public Key Cryptography</b>, since
+						users typically create a matching key pair, and make one
+						public while keeping the other secret.
 					</p>
 				</div>
 			}>

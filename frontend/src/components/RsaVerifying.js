@@ -37,9 +37,7 @@ const RsaVerifying = ({ mdData }) => {
 			pubKey.verify(decodedMdData, decodedSignature);
 			setSuccess(`Signature was verified using ${selectedKey.Name}.`);
 		} catch {
-			setError(
-				`Signature could not be verified using ${selectedKey.Name}.`
-			);
+			setError(`Signature could not be verified using ${selectedKey.Name}.`);
 		}
 	};
 
@@ -47,8 +45,7 @@ const RsaVerifying = ({ mdData }) => {
 		<div style={{ margin: '1.5rem' }}>
 			<VerifyingTooltip />
 			<p>
-				Selected key:{' '}
-				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
 				Paste in your signature in the text area and it will be verified

@@ -12,13 +12,13 @@ const EncryptionTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						A <b>digital signature</b> is a mathematical technique
-						used to validate the authenticity and integrity of a
-						message, software or digital document.
+						A <b>digital signature</b> is a mathematical technique used to
+						validate the authenticity and integrity of a message, software
+						or digital document.
 					</p>
 					<p>
-						<b>RSA signature</b> is a type of digital signature,
-						which uses the RSA asymmetric key algorithm.
+						<b>RSA signature</b> is a type of digital signature, which
+						uses the RSA asymmetric key algorithm.
 					</p>
 				</div>
 			}>

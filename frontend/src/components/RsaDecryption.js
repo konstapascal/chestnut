@@ -50,9 +50,7 @@ const RsaDecryption = () => {
 				);
 			})
 			.catch(() => {
-				setError(
-					`Could not decrypt your data using ${selectedKey.Name}.`
-				);
+				setError(`Could not decrypt your data using ${selectedKey.Name}.`);
 			});
 	};
 
@@ -60,8 +58,7 @@ const RsaDecryption = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<DecryptionTooltip />
 			<p>
-				Selected key:{' '}
-				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
 				Paste in your encrypted text in the first area and it will be

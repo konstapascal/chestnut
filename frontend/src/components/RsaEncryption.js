@@ -60,12 +60,11 @@ const RsaEncryption = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<EncryptionTooltip />
 			<p>
-				Selected key:{' '}
-				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Write plain text in the first area and it will be encrypted
-				using your selected keypairs public key.
+				Write plain text in the first area and it will be encrypted using
+				your selected keypairs public key.
 			</p>
 
 			<Form>

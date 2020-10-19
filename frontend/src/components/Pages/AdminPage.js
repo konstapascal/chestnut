@@ -79,8 +79,8 @@ const AdminPage = () => {
 		<div style={{ margin: '3rem' }}>
 			<h1>Administrator settings</h1>
 			<p>
-				Overview of all registered users and possibility to manually
-				delete select users.
+				Overview of all registered users and possibility to manually delete
+				select users.
 			</p>
 			<Grid stackable columns={1}>
 				<Grid.Column style={{ width: '40vw', minWidth: '400px' }}>
@@ -112,9 +112,7 @@ const AdminPage = () => {
 										verticalAlign='middle'
 									/>
 									<Item.Content>
-										<List.Header>
-											{item.Username}
-										</List.Header>
+										<List.Header>{item.Username}</List.Header>
 										<Modal
 											trigger={
 												<Button
@@ -122,9 +120,7 @@ const AdminPage = () => {
 													negative
 													content='Delete user'
 													floated='right'
-													onClick={() =>
-														handleModalOpen(item.ID)
-													}
+													onClick={() => handleModalOpen(item.ID)}
 												/>
 											}
 											open={ModalOpen === item.ID}>
@@ -135,38 +131,29 @@ const AdminPage = () => {
 											/>
 											<Modal.Content>
 												<p>
-													This is a <b>permanent</b>{' '}
-													action and will delete both
-													the user and his keys.
+													This is a <b>permanent</b> action and
+													will delete both the user and his keys.
 												</p>
 												<p>
-													Are you sure you want to
-													delete{' '}
+													Are you sure you want to delete{' '}
 													<b>{item.Username}</b>?
 												</p>
 											</Modal.Content>
 											<Modal.Actions>
-												<Button
-													onClick={handleModalClose}>
+												<Button onClick={handleModalClose}>
 													<Icon name='remove' />
 													Cancel
 												</Button>
 												<Button
 													color='red'
-													onClick={() =>
-														deleteUser(item.ID)
-													}>
+													onClick={() => deleteUser(item.ID)}>
 													<Icon name='checkmark' />
 													Delete
 												</Button>
 											</Modal.Actions>
 										</Modal>
-										<List.Description>
-											id: {item.ID}
-										</List.Description>
-										<List.Description>
-											{item.Email}
-										</List.Description>
+										<List.Description>id: {item.ID}</List.Description>
+										<List.Description>{item.Email}</List.Description>
 									</Item.Content>
 								</List.Item>
 							))}

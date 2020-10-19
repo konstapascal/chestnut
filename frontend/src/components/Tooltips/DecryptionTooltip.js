@@ -12,12 +12,12 @@ const DecryptionTooltip = () => {
 						padding: '1rem'
 					}}>
 					<p>
-						The conversion of encrypted data into its original form
-						is called <b>decryption</b>.
+						The conversion of encrypted data into its original form is
+						called <b>decryption</b>.
 					</p>
 					<p>
-						It is generally a reverse process of encryption that
-						requires a <b>secret key</b> or <b>password</b>.
+						It is generally a reverse process of encryption that requires
+						a <b>secret key</b> or <b>password</b>.
 					</p>
 				</div>
 			}>

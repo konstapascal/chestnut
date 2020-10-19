@@ -64,10 +64,7 @@ const Navbar = () => {
 						name='Admin Page'
 						active={activeItem === 'Admin Page'}
 						onClick={handleItemClick}>
-						<Icon
-							name='settings'
-							style={{ marginRight: '.5rem' }}
-						/>
+						<Icon name='settings' style={{ marginRight: '.5rem' }} />
 						Admin Page
 					</Menu.Item>
 				)}

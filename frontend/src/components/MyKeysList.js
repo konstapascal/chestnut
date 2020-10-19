@@ -140,20 +140,14 @@ const MyKeysList = ({ refreshKeys }) => {
 					<List divided relaxed>
 						{loadedKeys.length === 0 && (
 							<Message style={{ textAlign: 'center' }}>
-								<Icon
-									name='key'
-									size='large'
-									verticalAlign='middle'
-								/>
+								<Icon name='key' size='large' verticalAlign='middle' />
 								No keypairs.
 								{location.pathname === '/' && (
 									<span>
 										{' '}
 										Click{' '}
-										<Link onClick={() => toKeysPage()}>
-											here
-										</Link>{' '}
-										to make one.
+										<Link onClick={() => toKeysPage()}>here</Link> to
+										make one.
 									</span>
 								)}
 							</Message>
@@ -210,9 +204,7 @@ const MyKeysList = ({ refreshKeys }) => {
 												verticalAlign='middle'
 												negative
 												onClick={() =>
-													handleDeleteModalOpen(
-														item.KeypairID
-													)
+													handleDeleteModalOpen(item.KeypairID)
 												}
 											/>
 										}
@@ -232,19 +224,13 @@ const MyKeysList = ({ refreshKeys }) => {
 											</p>
 										</Modal.Content>
 										<Modal.Actions>
-											<Button
-												onClick={
-													handleDeleteModalClose
-												}>
+											<Button onClick={handleDeleteModalClose}>
 												<Icon name='remove' /> Cancel
 											</Button>
 											<Button
 												color='red'
 												onClick={() =>
-													deleteKey(
-														item.KeypairID,
-														item.Name
-													)
+													deleteKey(item.KeypairID, item.Name)
 												}>
 												<Icon name='checkmark' />
 												Delete
@@ -256,9 +242,8 @@ const MyKeysList = ({ refreshKeys }) => {
 						))}
 						{loadedKeys.length !== 0 && location.pathname === '/' && (
 							<Message style={{ textAlign: 'center' }}>
-								Click{' '}
-								<Link onClick={() => toKeysPage()}>here</Link>{' '}
-								to create more keys.
+								Click <Link onClick={() => toKeysPage()}>here</Link> to
+								create more keys.
 							</Message>
 						)}
 					</List>
@@ -277,13 +262,8 @@ const MyKeysList = ({ refreshKeys }) => {
 					<List divided relaxed>
 						{loadedPublicKeys.length === 0 && (
 							<Message style={{ textAlign: 'center' }}>
-								<Icon
-									name='key'
-									size='large'
-									verticalAlign='middle'
-								/>
-								Click <Link to='/users'>here</Link> to add
-								public keys.
+								<Icon name='key' size='large' verticalAlign='middle' />
+								Click <Link to='/users'>here</Link> to add public keys.
 							</Message>
 						)}
 						{loadedPublicKeys.map(key => (
@@ -340,8 +320,8 @@ const MyKeysList = ({ refreshKeys }) => {
 						))}
 						{loadedPublicKeys.length !== 0 && (
 							<Message style={{ textAlign: 'center' }}>
-								Click <Link to='/users'>here</Link> to add more
-								public keys.
+								Click <Link to='/users'>here</Link> to add more public
+								keys.
 							</Message>
 						)}
 					</List>
