@@ -11,7 +11,7 @@ const DemoPage = ({ componentSwap }) => {
 				<Tab.Pane>
 					<SymmetricSubpage />
 				</Tab.Pane>
-			),
+			)
 		},
 		{
 			menuItem: 'Utilities',
@@ -19,8 +19,8 @@ const DemoPage = ({ componentSwap }) => {
 				<Tab.Pane>
 					<UtilitiesSubpage />
 				</Tab.Pane>
-			),
-		},
+			)
+		}
 	];
 
 	return (
@@ -28,8 +28,7 @@ const DemoPage = ({ componentSwap }) => {
 			<Tab panes={demoSubpages} />
 			<Button
 				onClick={componentSwap}
-				style={{ marginTop: '1rem', backgroundColor: '#14872f' }}
-			>
+				style={{ marginTop: '1rem', backgroundColor: '#14872f' }}>
 				<p style={{ color: '#FFF' }}>Back</p>
 			</Button>
 		</div>

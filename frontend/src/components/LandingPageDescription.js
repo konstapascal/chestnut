@@ -15,7 +15,9 @@ const LandingPageDescription = ({ componentSwap }) => {
 				</p>
 			</Header.Subheader>
 			<br />
-			<Button onClick={componentSwap} style={{ backgroundColor: '#14872f' }}>
+			<Button
+				onClick={componentSwap}
+				style={{ backgroundColor: '#14872f' }}>
 				<p style={{ color: '#FFF' }}>Try out demo!</p>
 			</Button>
 		</div>

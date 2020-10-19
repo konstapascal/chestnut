@@ -7,7 +7,7 @@ import {
 	Input,
 	Button,
 	Message,
-	Icon,
+	Icon
 } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth-context';
 
@@ -21,14 +21,14 @@ const UsersPage = () => {
 	const fetchUsers = async () => {
 		await Axios.get('http://localhost:8080/api/keys/', {
 			headers: {
-				Authorization: auth.token,
-			},
+				Authorization: auth.token
+			}
 		})
-			.then((response) => {
+			.then(response => {
 				setLoadedUsers(response.data.users);
 				setFilteredUsers(response.data.users);
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log(err.response.data);
 			});
 	};
@@ -51,7 +51,7 @@ const UsersPage = () => {
 
 	useEffect(() => {
 		setFilteredUsers(
-			loadedUsers.filter((user) =>
+			loadedUsers.filter(user =>
 				user.Username.toLowerCase().includes(search.toLowerCase())
 			)
 		);
@@ -66,8 +66,8 @@ const UsersPage = () => {
 				ID: keyID,
 				keyName: keyName,
 				keyLength: keyLength,
-				publicKey: publicKey,
-			},
+				publicKey: publicKey
+			}
 		];
 
 		localStorage.setItem('addedPublicKeys', JSON.stringify(updatedState));
@@ -75,23 +75,24 @@ const UsersPage = () => {
 	};
 
 	// Function to check if key exists in the state array, returns true or false
-	const isKeyAdded = (publicKey) => {
-		return loadedPublicKeys.some((key) => key.publicKey === publicKey);
+	const isKeyAdded = publicKey => {
+		return loadedPublicKeys.some(key => key.publicKey === publicKey);
 	};
 
 	return (
 		<div style={{ margin: '3rem' }}>
 			<h1>List of users</h1>
 			<p>
-				This is a list of all registered users and their public keys. You may
-				filter users and easily add their public keys to your keys list.
+				This is a list of all registered users and their public keys.
+				You may filter users and easily add their public keys to your
+				keys list.
 			</p>
 			<Grid stackable columns={1}>
 				<Grid.Column style={{ width: '40vw', minWidth: '400px' }}>
 					<Input
 						placeholder='Filter users'
 						icon='search'
-						onChange={(e) => setSearch(e.target.value)}
+						onChange={e => setSearch(e.target.value)}
 					/>
 					<Grid.Row style={{ marginTop: '1.5rem' }}>
 						<List
@@ -100,9 +101,8 @@ const UsersPage = () => {
 							style={{
 								border: '1px solid #e3e3e3',
 								borderRadius: '0.5rem',
-								padding: '1rem',
-							}}
-						>
+								padding: '1rem'
+							}}>
 							{filteredUsers.length === 0 && (
 								<Message>
 									<Icon name='user' size='large' />
@@ -110,11 +110,15 @@ const UsersPage = () => {
 								</Message>
 							)}
 							{loadedUsers &&
-								filteredUsers.map((user) => (
+								filteredUsers.map(user => (
 									<List.Item key={user.ID}>
-										<List.Header as='h4'>{user.Username}</List.Header>
-										{user.Keypairs.map((key) => (
-											<List.List key={key.KeypairID} divided>
+										<List.Header as='h4'>
+											{user.Username}
+										</List.Header>
+										{user.Keypairs.map(key => (
+											<List.List
+												key={key.KeypairID}
+												divided>
 												<List.Item>
 													<Button
 														onClick={() =>
@@ -126,15 +130,34 @@ const UsersPage = () => {
 																key.PublicKey
 															)
 														}
-														disabled={isKeyAdded(key.PublicKey)}
+														disabled={isKeyAdded(
+															key.PublicKey
+														)}
 														content={
-															isKeyAdded(key.PublicKey) ? (
-																<span style={{ color: '#FFF' }}>Added</span>
+															isKeyAdded(
+																key.PublicKey
+															) ? (
+																<span
+																	style={{
+																		color:
+																			'#FFF'
+																	}}>
+																	Added
+																</span>
 															) : (
-																<span style={{ color: '#FFF' }}>Add</span>
+																<span
+																	style={{
+																		color:
+																			'#FFF'
+																	}}>
+																	Add
+																</span>
 															)
 														}
-														style={{ backgroundColor: '#14872f' }}
+														style={{
+															backgroundColor:
+																'#14872f'
+														}}
 														size='small'
 														floated='right'
 													/>
@@ -144,7 +167,9 @@ const UsersPage = () => {
 														verticalAlign='middle'
 													/>
 													<Item.Content>
-														<List.Header>{key.Name}</List.Header>
+														<List.Header>
+															{key.Name}
+														</List.Header>
 														<List.Description>
 															Length: {key.Length}
 														</List.Description>

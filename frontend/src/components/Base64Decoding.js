@@ -17,14 +17,14 @@ const Base64Decoding = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<Base64Tooltip />
 			<p>
-				Paste in your Base64 encoded text in the first field and it will be
-				automatically decoded.
+				Paste in your Base64 encoded text in the first field and it will
+				be automatically decoded.
 			</p>
 			<Form>
 				<Form.TextArea
 					placeholder='Write or paste your text here...'
 					style={{ minHeight: 100 }}
-					onChange={(e) => setUserInput(e.target.value)}
+					onChange={e => setUserInput(e.target.value)}
 				/>
 				<Form.TextArea
 					readOnly

@@ -17,8 +17,8 @@ const RsaDecryption = () => {
 
 	const authHeader = {
 		headers: {
-			Authorization: auth.token,
-		},
+			Authorization: auth.token
+		}
 	};
 
 	const decryptText = () => {
@@ -39,18 +39,20 @@ const RsaDecryption = () => {
 				decryptUrl,
 				{
 					encryptedText: userInput,
-					privateKey: privKey,
+					privateKey: privKey
 				},
 				authHeader
 			)
-			.then((response) => {
+			.then(response => {
 				setRsaDecrypted(response.data.decryptedText);
 				setSuccess(
 					`Your string has been decrypted successfully using ${selectedKey.Name}.`
 				);
 			})
 			.catch(() => {
-				setError(`Could not decrypt your data using ${selectedKey.Name}.`);
+				setError(
+					`Could not decrypt your data using ${selectedKey.Name}.`
+				);
 			});
 	};
 
@@ -58,18 +60,19 @@ const RsaDecryption = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<DecryptionTooltip />
 			<p>
-				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key:{' '}
+				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Paste in your encrypted text in the first area and it will be decrypted
-				using your selected key.
+				Paste in your encrypted text in the first area and it will be
+				decrypted using your selected key.
 			</p>
 			<Form onSubmit={decryptText}>
 				<Form.TextArea
 					spellCheck={false}
 					placeholder='Write or paste your encrypted text here...'
 					style={{ minHeight: 100 }}
-					onChange={(e) => setUserInput(e.target.value)}
+					onChange={e => setUserInput(e.target.value)}
 				/>
 				<Form.TextArea
 					readOnly
@@ -79,10 +82,9 @@ const RsaDecryption = () => {
 				/>
 				<Form.Button
 					style={{
-						backgroundColor: '#14872f',
+						backgroundColor: '#14872f'
 					}}
-					onClick={decryptText}
-				>
+					onClick={decryptText}>
 					<p style={{ color: '#FFF' }}>Decrypt</p>
 				</Form.Button>
 				{error && (

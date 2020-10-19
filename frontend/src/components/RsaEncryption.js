@@ -17,8 +17,8 @@ const RsaEncryption = () => {
 
 	const authHeader = {
 		headers: {
-			Authorization: auth.token,
-		},
+			Authorization: auth.token
+		}
 	};
 
 	const encryptText = () => {
@@ -39,11 +39,11 @@ const RsaEncryption = () => {
 				encryptUrl,
 				{
 					text: userInput,
-					publicKey: pubKey,
+					publicKey: pubKey
 				},
 				authHeader
 			)
-			.then((response) => {
+			.then(response => {
 				setRsaEncrypted(response.data.encryptedText);
 				setSuccess(
 					`Your string has been encrypted successfully using ${selectedKey.Name}.`
@@ -60,11 +60,12 @@ const RsaEncryption = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<EncryptionTooltip />
 			<p>
-				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key:{' '}
+				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Write plain text in the first area and it will be encrypted using your
-				selected keypairs public key.
+				Write plain text in the first area and it will be encrypted
+				using your selected keypairs public key.
 			</p>
 
 			<Form>
@@ -72,7 +73,7 @@ const RsaEncryption = () => {
 					spellCheck={false}
 					placeholder='Write or paste your text here...'
 					style={{ minHeight: 100 }}
-					onChange={(e) => setUserInput(e.target.value)}
+					onChange={e => setUserInput(e.target.value)}
 				/>
 				<Form.TextArea
 					spellCheck={false}
@@ -83,10 +84,9 @@ const RsaEncryption = () => {
 				/>
 				<Form.Button
 					style={{
-						backgroundColor: '#14872f',
+						backgroundColor: '#14872f'
 					}}
-					onClick={encryptText}
-				>
+					onClick={encryptText}>
 					<p style={{ color: '#FFF' }}>Encrypt</p>
 				</Form.Button>
 				{error && (

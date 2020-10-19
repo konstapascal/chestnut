@@ -46,11 +46,12 @@ const RsaSigning = ({ setMdData }) => {
 		<div style={{ margin: '1.5rem' }}>
 			<SigningTooltip />
 			<p>
-				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key:{' '}
+				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Write plain text in the first area and it will be signed using your
-				selected keypairs private key.
+				Write plain text in the first area and it will be signed using
+				your selected keypairs private key.
 			</p>
 
 			<Form>
@@ -58,7 +59,7 @@ const RsaSigning = ({ setMdData }) => {
 					spellCheck={false}
 					placeholder='Write or paste your text here...'
 					style={{ minHeight: 100 }}
-					onChange={(e) => setUserInput(e.target.value)}
+					onChange={e => setUserInput(e.target.value)}
 				/>
 				<Form.TextArea
 					spellCheck={false}
@@ -69,10 +70,9 @@ const RsaSigning = ({ setMdData }) => {
 				/>
 				<Form.Button
 					style={{
-						backgroundColor: '#14872f',
+						backgroundColor: '#14872f'
 					}}
-					onClick={signText}
-				>
+					onClick={signText}>
 					<p style={{ color: '#FFF' }}>Sign</p>
 				</Form.Button>
 				{error && (

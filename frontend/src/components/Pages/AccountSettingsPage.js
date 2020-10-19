@@ -9,8 +9,8 @@ const AccountSettingsPage = () => {
 	const deleteUrl = 'http://localhost:8080/api/users/me';
 	const authHeader = {
 		headers: {
-			Authorization: auth.token,
-		},
+			Authorization: auth.token
+		}
 	};
 
 	const [ModalOpen, setModalOpen] = useState(false);
@@ -41,13 +41,16 @@ const AccountSettingsPage = () => {
 						Delete account
 					</Button>
 				}
-				open={ModalOpen === true}
-			>
-				<Header color='red' icon='warning sign' content='Delete account?' />
+				open={ModalOpen === true}>
+				<Header
+					color='red'
+					icon='warning sign'
+					content='Delete account?'
+				/>
 				<Modal.Content>
 					<p>
-						This is a <b>permanent</b> action and will delete both your account
-						and your keys.
+						This is a <b>permanent</b> action and will delete both
+						your account and your keys.
 					</p>
 					<p>
 						Are you sure you want to <b>delete</b> your account?

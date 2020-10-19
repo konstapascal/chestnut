@@ -37,7 +37,9 @@ const RsaVerifying = ({ mdData }) => {
 			pubKey.verify(decodedMdData, decodedSignature);
 			setSuccess(`Signature was verified using ${selectedKey.Name}.`);
 		} catch {
-			setError(`Signature could not be verified using ${selectedKey.Name}.`);
+			setError(
+				`Signature could not be verified using ${selectedKey.Name}.`
+			);
 		}
 	};
 
@@ -45,11 +47,12 @@ const RsaVerifying = ({ mdData }) => {
 		<div style={{ margin: '1.5rem' }}>
 			<VerifyingTooltip />
 			<p>
-				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
+				Selected key:{' '}
+				<b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Paste in your signature in the text area and it will be verified using
-				the selected public key.
+				Paste in your signature in the text area and it will be verified
+				using the selected public key.
 			</p>
 
 			<Form>
@@ -57,14 +60,13 @@ const RsaVerifying = ({ mdData }) => {
 					spellCheck={false}
 					placeholder='Write or paste your signature here...'
 					style={{ minHeight: 100 }}
-					onChange={(e) => setSignature(e.target.value)}
+					onChange={e => setSignature(e.target.value)}
 				/>
 				<Form.Button
 					style={{
-						backgroundColor: '#14872f',
+						backgroundColor: '#14872f'
 					}}
-					onClick={verifySignature}
-				>
+					onClick={verifySignature}>
 					<p style={{ color: '#FFF' }}>Verify</p>
 				</Form.Button>
 

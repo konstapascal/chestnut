@@ -4,7 +4,7 @@ import { useForm } from '../hooks/form-hook';
 import {
 	VALIDATOR_EMAIL,
 	VALIDATOR_MINLENGTH,
-	VALIDATOR_REQUIRE,
+	VALIDATOR_REQUIRE
 } from '../util/validators';
 import Input from './FormElements/Input';
 
@@ -18,33 +18,33 @@ const Signup = ({ componentSwap }) => {
 		{
 			username: {
 				value: '',
-				isValid: false,
+				isValid: false
 			},
 			email: {
 				value: '',
-				isValid: false,
+				isValid: false
 			},
 			password: {
 				value: '',
-				isValid: false,
-			},
+				isValid: false
+			}
 		},
 		false
 	);
 
-	const authSubmitHandler = (event) => {
+	const authSubmitHandler = event => {
 		event.preventDefault();
 		axios
 			.post('http://localhost:8080/api/signup', {
 				username: formState.inputs.username.value,
 				email: formState.inputs.email.value,
-				password: formState.inputs.password.value,
+				password: formState.inputs.password.value
 			})
-			.then((response) => {
+			.then(response => {
 				setStatus(response.data.message);
 				setError('');
 			})
-			.catch((err) => {
+			.catch(err => {
 				setError(err.response.data.message);
 				setStatus('');
 			});
@@ -56,9 +56,8 @@ const Signup = ({ componentSwap }) => {
 				textAlign: 'center',
 				maxWidth: '400px',
 				minWidth: '400px',
-				margin: 'auto',
-			}}
-		>
+				margin: 'auto'
+			}}>
 			<Segment>
 				<h3 style={{ textAlign: 'center' }}>Create an account</h3>
 				<hr />
@@ -103,8 +102,7 @@ const Signup = ({ componentSwap }) => {
 					<Form.Button
 						type='submit'
 						disabled={!formState.isValid}
-						style={{ backgroundColor: '#14872f' }}
-					>
+						style={{ backgroundColor: '#14872f' }}>
 						<p style={{ color: '#FFF' }}>Sign up</p>
 					</Form.Button>
 					{errorMessage && (
