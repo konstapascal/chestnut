@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('chestnut', 'konsta', '', {
+const sequelize = new Sequelize('test', 'konsta', 'mysqlpass', {
 	host: '127.0.0.1',
 	dialect: 'mysql',
 	port: 3306,
@@ -11,15 +11,6 @@ const sequelize = new Sequelize('chestnut', 'konsta', '', {
 		timestamps: false
 	}
 });
-
-sequelize
-	.authenticate()
-	.then(() => {
-		console.log('Connection has been established successfully.');
-	})
-	.catch(err => {
-		console.error('Unable to connect to the database:', err);
-	});
 
 const db = {};
 
