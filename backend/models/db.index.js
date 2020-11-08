@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('test', 'konsta', 'mysqlpass', {
+const sequelize = new Sequelize('chestnut', 'root', 'mysqlpass', {
 	host: '127.0.0.1',
 	dialect: 'mysql',
 	port: 3306,
