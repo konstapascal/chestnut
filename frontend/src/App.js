@@ -43,9 +43,10 @@ const App = () => {
 		// Restoring all defaults on logout
 		setToken(null);
 		setUsername('');
-		test(false);
 		setIsAdmin(false);
 		localStorage.removeItem('userData');
+
+		window.location.reload();
 	};
 
 	useEffect(() => {
