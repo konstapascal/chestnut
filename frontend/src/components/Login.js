@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 
 import { AuthContext } from '../context/auth-context';
@@ -30,7 +30,7 @@ const Login = ({ componentSwap }) => {
 	const authSubmitHandler = async event => {
 		event.preventDefault();
 		await axios
-			.post('http://localhost:8080/api/login', {
+			.post('http://localhost:8080/login', {
 				username: formState.inputs.username.value,
 				password: formState.inputs.password.value
 			})
@@ -74,14 +74,10 @@ const Login = ({ componentSwap }) => {
 							validators={[VALIDATOR_REQUIRE()]}
 							errorText='Please enter your password.'
 							onInput={inputHandler}
-							placeholder='Choose a password'
+							placeholder='Password'
 						/>
 					</Form.Field>
-					<Button
-						type='submit'
-						positive
-						disabled={!formState.isValid}
-						color='green'>
+					<Button type='submit' positive disabled={!formState.isValid} color='green'>
 						Log in
 					</Button>
 					{errorMessage && (
@@ -91,8 +87,10 @@ const Login = ({ componentSwap }) => {
 						</Message>
 					)}
 					<Message>
-						Don't have an account?{' '}
+						Don't have an account?
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 						<a href='#' onClick={componentSwap}>
+							{' '}
 							Signup
 						</a>
 					</Message>

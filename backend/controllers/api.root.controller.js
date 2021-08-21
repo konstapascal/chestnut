@@ -7,22 +7,22 @@ exports.root = (req, res) => {
 		{
 			method: 'POST',
 			description: 'Login',
-			href: url + '/api/login',
+			href: url + '/login'
 		},
 		{
 			method: 'POST',
 			description: 'Signup',
-			href: url + '/api/register',
+			href: url + '/register'
 		},
 		{
 			method: 'POST',
 			description: 'Encrypt',
-			href: url + '/api/encrypt',
+			href: url + '/encrypt'
 		},
 		{
 			method: 'POST',
 			description: 'Decrypt',
-			href: url + '/api/decrypt',
-		},
+			href: url + '/decrypt'
+		}
 	]);
 };

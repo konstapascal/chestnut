@@ -5,51 +5,51 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.INTEGER,
 			autoIncrement: true,
 			unique: true,
-			primaryKey: true,
+			primaryKey: true
 		},
 		Name: {
 			type: Sequelize.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: true,
-			},
+				notEmpty: true
+			}
 		},
 		Type: {
 			type: Sequelize.STRING,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
-				isIn: [['RSA']],
-			},
+				isIn: [['RSA']]
+			}
 		},
 		Length: {
 			type: Sequelize.INTEGER,
 			allowNull: false,
 			validate: {
 				isInt: true,
-				isIn: [[512, 1024, 2048]],
-			},
+				isIn: [[512, 1024, 2048]]
+			}
 		},
 		PublicKey: {
 			type: Sequelize.TEXT,
 			allowNull: false,
 			validate: {
-				notEmpty: true,
-			},
+				notEmpty: true
+			}
 		},
 		PrivateKey: {
 			type: Sequelize.TEXT,
 			allowNull: false,
 			validate: {
-				notEmpty: true,
-			},
+				notEmpty: true
+			}
 		},
 		createdAt: {
 			type: Sequelize.DATE,
 			allowNull: false,
 			// Date stored in UTC, so 2 hours behind for local time (Oslo)
-			defaultValue: Sequelize.NOW,
-		},
+			defaultValue: Sequelize.NOW
+		}
 	});
 
 	return Keypair;

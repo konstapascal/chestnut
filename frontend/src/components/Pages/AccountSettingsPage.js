@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/auth-context';
 
 const AccountSettingsPage = () => {
 	const auth = useContext(AuthContext);
-	const deleteUrl = 'http://localhost:8080/api/users/me';
+	const deleteUrl = 'http://localhost:8080/users/me';
 	const authHeader = {
 		headers: {
 			Authorization: auth.token
@@ -32,8 +32,8 @@ const AccountSettingsPage = () => {
 		<div style={{ margin: '3rem' }}>
 			<h1>Account settings</h1>
 			<p>
-				Delete your account permanently, erasing all personal info and
-				associated data such as your keys from the database.
+				Delete your account permanently, erasing all personal info and associated data such as
+				your keys from the database.
 			</p>
 			<Modal
 				trigger={
@@ -45,8 +45,7 @@ const AccountSettingsPage = () => {
 				<Header color='red' icon='warning sign' content='Delete account?' />
 				<Modal.Content>
 					<p>
-						This is a <b>permanent</b> action and will delete both your
-						account and your keys.
+						This is a <b>permanent</b> action and will delete both your account and your keys.
 					</p>
 					<p>
 						Are you sure you want to <b>delete</b> your account?

@@ -1,7 +1,7 @@
-module.exports = (app) => {
+module.exports = app => {
 	const User = require('../controllers/user.controller');
-	const router = require('express').Router();
 	const jwtMiddleware = require('../middlewares/check.token');
+	const router = require('express').Router();
 
 	// Retrieve a single users info by id
 	router.get('/:id', jwtMiddleware.checkToken, User.getUser);
@@ -18,5 +18,5 @@ module.exports = (app) => {
 	// Update an users info by id, admin only
 	router.patch('/:id', jwtMiddleware.checkToken, User.updateUser);
 
-	app.use('/api/users', router);
+	app.use('/users', router);
 };

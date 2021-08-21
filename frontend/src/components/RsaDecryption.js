@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Form, Message, Icon, Label } from 'semantic-ui-react';
+import { Form, Message, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import DecryptionTooltip from './Tooltips/DecryptionTooltip';
 
@@ -26,7 +26,7 @@ const RsaDecryption = () => {
 		setSuccess('');
 		setRsaDecrypted('');
 
-		const decryptUrl = 'http://localhost:8080/api/decrypt';
+		const decryptUrl = 'http://localhost:8080/decrypt';
 		const privKey = selectedKey.PrivateKey;
 
 		if (userInput === '') {
@@ -45,9 +45,7 @@ const RsaDecryption = () => {
 			)
 			.then(response => {
 				setRsaDecrypted(response.data.decryptedText);
-				setSuccess(
-					`Your string has been decrypted successfully using ${selectedKey.Name}.`
-				);
+				setSuccess(`Your string has been decrypted successfully using ${selectedKey.Name}.`);
 			})
 			.catch(() => {
 				setError(`Could not decrypt your data using ${selectedKey.Name}.`);
@@ -61,8 +59,8 @@ const RsaDecryption = () => {
 				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Paste in your encrypted text in the first area and it will be
-				decrypted using your selected key.
+				Paste in your encrypted text in the first area and it will be decrypted using your
+				selected key.
 			</p>
 			<Form onSubmit={decryptText}>
 				<Form.TextArea

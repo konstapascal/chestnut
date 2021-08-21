@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Form, Message, Icon, Label } from 'semantic-ui-react';
+import { Form, Message, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 
 import { AuthContext } from '../context/auth-context';
@@ -26,7 +26,7 @@ const RsaEncryption = () => {
 		setSuccess('');
 		setRsaEncrypted('');
 
-		const encryptUrl = 'http://localhost:8080/api/encrypt';
+		const encryptUrl = 'http://localhost:8080/encrypt';
 		const pubKey = selectedKey.PublicKey;
 
 		if (userInput === '') {
@@ -45,14 +45,10 @@ const RsaEncryption = () => {
 			)
 			.then(response => {
 				setRsaEncrypted(response.data.encryptedText);
-				setSuccess(
-					`Your string has been encrypted successfully using ${selectedKey.Name}.`
-				);
+				setSuccess(`Your string has been encrypted successfully using ${selectedKey.Name}.`);
 			})
 			.catch(() => {
-				setError(
-					`Something went wrong encrypting your string using ${selectedKey.Name}.`
-				);
+				setError(`Something went wrong encrypting your string using ${selectedKey.Name}.`);
 			});
 	};
 
@@ -63,8 +59,8 @@ const RsaEncryption = () => {
 				Selected key: <b>{selectedKey.Name ? selectedKey.Name : 'None'}</b>
 			</p>
 			<p>
-				Write plain text in the first area and it will be encrypted using
-				your selected keypairs public key.
+				Write plain text in the first area and it will be encrypted using your selected keypairs
+				public key.
 			</p>
 
 			<Form>

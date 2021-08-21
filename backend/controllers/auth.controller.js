@@ -14,8 +14,7 @@ exports.signup = async (req, res) => {
 	if (!username || !password || !email) {
 		return res.status(400).json({
 			status: '400 - Bad Request',
-			message:
-				'All fields are required and must be filled (username, password, email).',
+			message: 'All fields are required and must be filled (username, password, email).'
 		});
 	}
 
@@ -27,17 +26,17 @@ exports.signup = async (req, res) => {
 	if (usernameExists && emailExists) {
 		return res.status(422).json({
 			status: '422 - Unprocessable Entity',
-			message: 'Both username and email already exist.',
+			message: 'Both username and email already exist.'
 		});
 	} else if (usernameExists) {
 		return res.status(422).json({
 			status: '422 - Unprocessable Entity',
-			message: 'Username already exists.',
+			message: 'Username already exists.'
 		});
 	} else if (emailExists) {
 		return res.status(422).json({
 			status: '422 - Unprocessable Entity',
-			message: 'Email already exists.',
+			message: 'Email already exists.'
 		});
 	}
 
@@ -46,7 +45,7 @@ exports.signup = async (req, res) => {
 		Username: username,
 		Password: bcrypt.hashSync(password, 12),
 		Email: email,
-		isAdmin: 0,
+		isAdmin: 0
 	};
 
 	// Run query to save schema in the database
@@ -55,39 +54,38 @@ exports.signup = async (req, res) => {
 			res.status(201).json(
 				{
 					status: '201 - Created',
-					message: `User ${username} created successfully.`,
+					message: `User ${username} created successfully.`
 				},
 				[
 					{
 						self: {
 							method: 'POST',
 							description: 'Signup',
-							href: '/api/signup',
-						},
+							href: '/signup'
+						}
 					},
 					{
 						method: 'POST',
 						description: 'Login',
-						href: '/api/login',
+						href: '/login'
 					},
 					{
 						method: 'POST',
 						description: 'Encrypt string using the provided public key.',
-						href: '/api/encrypt',
+						href: '/encrypt'
 					},
 					{
 						method: 'POST',
-						description:
-							'Decrypt cipher string using the provided private key.',
-						href: '/api/decrypt',
-					},
+						description: 'Decrypt cipher string using the provided private key.',
+						href: '/decrypt'
+					}
 				]
 			);
 		})
 		.catch(err => {
 			res.status(500).json({
 				status: '500 - Internal Server Error',
-				message: `Error occurred while creating user ${username}:` + err,
+				message: `Error occurred while creating user ${username}:` + err
 			});
 		});
 };
@@ -101,12 +99,12 @@ exports.login = async (req, res) => {
 	if (!username || !password) {
 		return res.status(400).json({
 			status: '400 - Bad Request',
-			message: 'Both username and password are required fields.',
+			message: 'Both username and password are required fields.'
 		});
 	}
 
 	const isUserAdmin = await User.findOne({
-		where: { Username: username, IsAdmin: true },
+		where: { Username: username, IsAdmin: true }
 	});
 
 	User.findOne({ where: { Username: username } })
@@ -115,7 +113,7 @@ exports.login = async (req, res) => {
 			if (!user) {
 				return res.status(404).json({
 					status: '404 - Not Found',
-					message: 'Username not found.',
+					message: 'Username not found.'
 				});
 			}
 
@@ -125,7 +123,7 @@ exports.login = async (req, res) => {
 			if (!passwordIsValid) {
 				return res.status(422).json({
 					status: '422 - Unprocessable Entity',
-					message: 'Invalid Password.',
+					message: 'Invalid Password.'
 				});
 			}
 
@@ -142,49 +140,46 @@ exports.login = async (req, res) => {
 					{
 						status: '200 - OK',
 						message: 'Login successful and token has been issued.',
-						token: token,
+						token: token
 					},
 					[
 						{
 							self: {
 								method: 'POST',
 								description: 'Login',
-								href: '/api/login',
-							},
+								href: '/login'
+							}
 						},
 						{
 							method: 'GET',
 							description: 'Get all registered users info.',
-							href: '/api/users',
+							href: '/users'
 						},
 						{
 							method: 'GET',
-							description:
-								'Get all keys, public and private, of currently logged in user.',
-							href: '/api/keys/users/me',
+							description: 'Get all keys, public and private, of currently logged in user.',
+							href: '/keys/users/me'
 						},
 						{
 							method: 'GET',
-							description:
-								'Get all public keypairs and usernames of all registered users.',
-							href: '/api/keys',
+							description: 'Get all public keypairs and usernames of all registered users.',
+							href: '/keys'
 						},
 						{
 							method: 'DELETE',
 							description: 'Delete currently logged in user.',
-							href: '/api/users/me',
+							href: '/users/me'
 						},
 						{
 							method: 'POST',
 							description: 'Encrypt string using the provided public key.',
-							href: '/api/encrypt',
+							href: '/encrypt'
 						},
 						{
 							method: 'POST',
-							description:
-								'Decrypt cipher string using the provided private key.',
-							href: '/api/decrypt',
-						},
+							description: 'Decrypt cipher string using the provided private key.',
+							href: '/decrypt'
+						}
 					]
 				);
 			} else if (!isUserAdmin) {
@@ -192,44 +187,41 @@ exports.login = async (req, res) => {
 					{
 						status: '200 - OK',
 						message: 'Login successful and token has been issued.',
-						token: token,
+						token: token
 					},
 					[
 						{
 							self: {
 								method: 'POST',
 								description: 'Login',
-								href: '/api/login',
-							},
+								href: '/login'
+							}
 						},
 						{
 							method: 'GET',
-							description:
-								'Get all keys, public and private of currently logged in user.',
-							href: '/api/keys/users/me',
+							description: 'Get all keys, public and private of currently logged in user.',
+							href: '/keys/users/me'
 						},
 						{
 							method: 'GET',
-							description:
-								'Get all public keypairs and usernames of all registered users.',
-							href: '/api/keys',
+							description: 'Get all public keypairs and usernames of all registered users.',
+							href: '/keys'
 						},
 						{
 							method: 'DELETE',
 							description: 'Delete currently logged in user.',
-							href: '/api/users/me',
+							href: '/users/me'
 						},
 						{
 							method: 'POST',
 							description: 'Encrypt string using the provided public key.',
-							href: '/api/encrypt',
+							href: '/encrypt'
 						},
 						{
 							method: 'POST',
-							description:
-								'Decrypt cipher string using the provided private key.',
-							href: '/api/decrypt',
-						},
+							description: 'Decrypt cipher string using the provided private key.',
+							href: '/decrypt'
+						}
 					]
 				);
 			}
@@ -237,7 +229,7 @@ exports.login = async (req, res) => {
 		.catch(err => {
 			res.status(500).json({
 				status: 'Error',
-				message: 'Error occured while logging in: ' + err,
+				message: 'Error occured while logging in: ' + err
 			});
 		});
 };

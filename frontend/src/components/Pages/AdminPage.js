@@ -1,16 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
-import {
-	List,
-	Item,
-	Grid,
-	Input,
-	Icon,
-	Button,
-	Modal,
-	Header,
-	Message
-} from 'semantic-ui-react';
+import { List, Item, Grid, Input, Icon, Button, Modal, Header, Message } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth-context';
 
 const AdminPage = () => {
@@ -26,26 +16,15 @@ const AdminPage = () => {
 		}
 	};
 
-	const getUrl = 'http://localhost:8080/api/users';
+	const getUrl = 'http://localhost:8080/users';
 
 	// Functions for opening/closing modal
 	const handleModalOpen = modalID => setModalOpen(modalID);
 	const handleModalClose = () => setModalOpen(false);
 
-	const fetchUsers = () => {
-		Axios.get(getUrl, authHeader)
-			.then(response => {
-				setLoadedUsers(response.data.users);
-				setFilteredUsers(response.data.users);
-			})
-			.catch(err => {
-				console.log(err.response.data);
-			});
-	};
-
 	// DELETE an user
 	const deleteUser = UserID => {
-		const deleteUrl = 'http://localhost:8080/api/users/' + UserID;
+		const deleteUrl = 'http://localhost:8080/users/' + UserID;
 
 		Axios.delete(deleteUrl, authHeader)
 			.then(() => {
@@ -63,25 +42,31 @@ const AdminPage = () => {
 
 	// GET all users on render
 	useEffect(() => {
+		const fetchUsers = () => {
+			Axios.get(getUrl, authHeader)
+				.then(response => {
+					setLoadedUsers(response.data.users);
+					setFilteredUsers(response.data.users);
+				})
+				.catch(err => {
+					console.log(err.response.data);
+				});
+		};
+
 		fetchUsers();
-	}, []);
+	}, [authHeader]);
 
 	useEffect(() => {
 		loadedUsers &&
 			setFilteredUsers(
-				loadedUsers.filter(user =>
-					user.Username.toLowerCase().includes(search.toLowerCase())
-				)
+				loadedUsers.filter(user => user.Username.toLowerCase().includes(search.toLowerCase()))
 			);
-	}, [search]);
+	}, [search, loadedUsers]);
 
 	return (
 		<div style={{ margin: '3rem' }}>
 			<h1>Administrator settings</h1>
-			<p>
-				Overview of all registered users and possibility to manually delete
-				select users.
-			</p>
+			<p>Overview of all registered users and possibility to manually delete select users.</p>
 			<Grid stackable columns={1}>
 				<Grid.Column style={{ width: '40vw', minWidth: '400px' }}>
 					<Input
@@ -106,11 +91,7 @@ const AdminPage = () => {
 							)}
 							{filteredUsers.map(item => (
 								<List.Item key={item.ID}>
-									<List.Icon
-										name='user'
-										size='large'
-										verticalAlign='middle'
-									/>
+									<List.Icon name='user' size='large' verticalAlign='middle' />
 									<Item.Content>
 										<List.Header>{item.Username}</List.Header>
 										<Modal
@@ -124,19 +105,14 @@ const AdminPage = () => {
 												/>
 											}
 											open={ModalOpen === item.ID}>
-											<Header
-												icon='warning sign'
-												color='red'
-												content='Delete user?'
-											/>
+											<Header icon='warning sign' color='red' content='Delete user?' />
 											<Modal.Content>
 												<p>
-													This is a <b>permanent</b> action and
-													will delete both the user and his keys.
+													This is a <b>permanent</b> action and will delete both the
+													user and his keys.
 												</p>
 												<p>
-													Are you sure you want to delete{' '}
-													<b>{item.Username}</b>?
+													Are you sure you want to delete <b>{item.Username}</b>?
 												</p>
 											</Modal.Content>
 											<Modal.Actions>
@@ -144,9 +120,7 @@ const AdminPage = () => {
 													<Icon name='remove' />
 													Cancel
 												</Button>
-												<Button
-													color='red'
-													onClick={() => deleteUser(item.ID)}>
+												<Button color='red' onClick={() => deleteUser(item.ID)}>
 													<Icon name='checkmark' />
 													Delete
 												</Button>

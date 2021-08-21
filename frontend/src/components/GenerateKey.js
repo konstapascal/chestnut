@@ -1,13 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-	Button,
-	Form,
-	Segment,
-	Header,
-	Input,
-	Message,
-	Icon
-} from 'semantic-ui-react';
+import { Button, Form, Segment, Header, Input, Message, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import { AuthContext } from '../context/auth-context';
 
@@ -44,6 +36,7 @@ const GenerateKey = ({ handleRefresh }) => {
 	const auth = useContext(AuthContext);
 
 	const [keyName, setKeyName] = useState('');
+	// eslint-disable-next-line no-unused-vars
 	const [keyType, setKeyType] = useState(typeOptions[0].value);
 	const [keyLength, setKeyLength] = useState(lengthOptions[1].value);
 
@@ -76,7 +69,7 @@ const GenerateKey = ({ handleRefresh }) => {
 		const pemPrivateKey = pki.privateKeyToPem(keypair.privateKey);
 		axios
 			.post(
-				'http://localhost:8080/api/keys/new/users/me',
+				'http://localhost:8080/keys/new/users/me',
 				{
 					name: keyName,
 					type: keyType,

@@ -2,14 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./models/db.index');
-const bcrypt = require('bcrypt');
 
 const app = express();
 
 const hateoasLinker = require('express-hateoas-links');
 
 const corsOptions = {
-	origin: '*',
+	origin: '*'
 };
 
 app.use(cors(corsOptions));

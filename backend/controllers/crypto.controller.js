@@ -13,7 +13,7 @@ exports.encryptText = (req, res) => {
 	if (!decryptedText || !pemPublicKey) {
 		return res.status(400).json({
 			status: '400 - Bad Request',
-			message: 'Both fields are required and must be filled (text, publicKey).',
+			message: 'Both fields are required and must be filled (text, publicKey).'
 		});
 	}
 
@@ -26,14 +26,14 @@ exports.encryptText = (req, res) => {
 			self: {
 				method: 'POST',
 				description: 'Encrypt string using the provided public key.',
-				href: url + '/api/encrypt',
-			},
+				href: url + '/encrypt'
+			}
 		},
 		{
 			method: 'POST',
 			description: 'Decrypt cipher string using the provided private key.',
-			href: url + '/api/decrypt',
-		},
+			href: url + '/decrypt'
+		}
 	]);
 };
 
@@ -49,8 +49,7 @@ exports.decryptText = (req, res) => {
 	if (!encryptedText || !pemPrivateKey) {
 		return res.status(400).json({
 			status: '400 - Bad Request',
-			message:
-				'Both fields are required and must be filled (encryptedText, privateKey).',
+			message: 'Both fields are required and must be filled (encryptedText, privateKey).'
 		});
 	}
 
@@ -63,13 +62,13 @@ exports.decryptText = (req, res) => {
 			self: {
 				method: 'POST',
 				description: 'Decrypt cipher string using the provided private key.',
-				href: url + '/api/decrypt',
-			},
+				href: url + '/decrypt'
+			}
 		},
 		{
 			method: 'POST',
 			description: 'Encrypt string using the provided public key.',
-			href: url + '/api/encrypt',
-		},
+			href: url + '/encrypt'
+		}
 	]);
 };

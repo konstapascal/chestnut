@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
-import {
-	Menu,
-	List,
-	Tab,
-	Icon,
-	Button,
-	Modal,
-	Header,
-	Message
-} from 'semantic-ui-react';
+import { Menu, List, Tab, Icon, Button, Modal, Header, Message } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -26,6 +17,7 @@ const MyKeysList = ({ refreshKeys }) => {
 	const [loadedKeys, setLoadedKeys] = useState([]);
 	const [loadedPublicKeys, setLoadedPublicKeys] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
+	// eslint-disable-next-line no-unused-vars
 	const [activeKey, setActiveKey] = useState(selectedKey.Name);
 
 	const authHeader = {
@@ -47,25 +39,25 @@ const MyKeysList = ({ refreshKeys }) => {
 		});
 	};
 
-	const getUrl = 'http://localhost:8080/api/keys/users/me';
+	const getUrl = 'http://localhost:8080/keys/users/me';
 	const location = useLocation();
 	const history = useHistory();
 
-	// GET all my keys request
-	const fetchMyKeys = () => {
-		Axios.get(getUrl, authHeader)
-			.then(response => {
-				setLoadedKeys(response.data.keypairs);
-			})
-			.catch(err => {
-				setLoadedKeys([]);
-				console.log(err.response.data);
-			});
-	};
-
 	useEffect(() => {
+		// GET all my keys request
+		const fetchMyKeys = () => {
+			Axios.get(getUrl, authHeader)
+				.then(response => {
+					setLoadedKeys(response.data.keypairs);
+				})
+				.catch(err => {
+					setLoadedKeys([]);
+					console.log(err.response.data);
+				});
+		};
+
 		fetchMyKeys();
-	}, [refreshKeys]);
+	}, [authHeader]);
 
 	// Get saved public keys from localstorage
 	useEffect(() => {
@@ -82,7 +74,7 @@ const MyKeysList = ({ refreshKeys }) => {
 
 	// DELETE a key request
 	const deleteKey = (KeypairID, KeypairName) => {
-		const deleteUrl = 'http://localhost:8080/api/keys/' + KeypairID;
+		const deleteUrl = 'http://localhost:8080/keys/' + KeypairID;
 
 		// If the key being deleted is already selected by the user, unselect it.
 		if (KeypairName === selectedKey.Name) {
@@ -116,15 +108,10 @@ const MyKeysList = ({ refreshKeys }) => {
 			});
 		}
 
-		const newLoadedPublicKeys = loadedPublicKeys.filter(
-			key => key.ID !== KeypairID
-		);
+		const newLoadedPublicKeys = loadedPublicKeys.filter(key => key.ID !== KeypairID);
 
 		setLoadedPublicKeys(newLoadedPublicKeys);
-		localStorage.setItem(
-			'addedPublicKeys',
-			JSON.stringify(newLoadedPublicKeys)
-		);
+		localStorage.setItem('addedPublicKeys', JSON.stringify(newLoadedPublicKeys));
 	};
 
 	const toKeysPage = () => {
@@ -145,9 +132,7 @@ const MyKeysList = ({ refreshKeys }) => {
 								{location.pathname === '/' && (
 									<span>
 										{' '}
-										Click{' '}
-										<Link onClick={() => toKeysPage()}>here</Link> to
-										make one.
+										Click <Link onClick={() => toKeysPage()}>here</Link> to make one.
 									</span>
 								)}
 							</Message>
@@ -168,11 +153,7 @@ const MyKeysList = ({ refreshKeys }) => {
 												cursor: 'pointer'
 										  }
 								}>
-								<List.Icon
-									name='key'
-									size='large'
-									verticalAlign='middle'
-								/>
+								<List.Icon name='key' size='large' verticalAlign='middle' />
 								<List.Content
 									onClick={() =>
 										handleActiveKey(
@@ -183,14 +164,9 @@ const MyKeysList = ({ refreshKeys }) => {
 										)
 									}>
 									<List.Header>{item.Name}</List.Header>
+									<List.Description>Length: {item.Length}</List.Description>
 									<List.Description>
-										Length: {item.Length}
-									</List.Description>
-									<List.Description>
-										Created:{' '}
-										{moment(item.createdAt)
-											.local()
-											.format('DD MMM YYYY, HH:mm')}
+										Created: {moment(item.createdAt).local().format('DD MMM YYYY, HH:mm')}
 									</List.Description>
 								</List.Content>
 
@@ -203,24 +179,17 @@ const MyKeysList = ({ refreshKeys }) => {
 												floated='right'
 												verticalAlign='middle'
 												negative
-												onClick={() =>
-													handleDeleteModalOpen(item.KeypairID)
-												}
+												onClick={() => handleDeleteModalOpen(item.KeypairID)}
 											/>
 										}
 										size='tiny'
 										open={modalOpen === item.KeypairID}
 										onClose={handleDeleteModalClose}
 										closeIcon>
-										<Header
-											icon='warning sign'
-											color='red'
-											content='Delete key?'
-										/>
+										<Header icon='warning sign' color='red' content='Delete key?' />
 										<Modal.Content>
 											<p>
-												Are you sure you want to delete{' '}
-												<b>{item.Name}</b>?
+												Are you sure you want to delete <b>{item.Name}</b>?
 											</p>
 										</Modal.Content>
 										<Modal.Actions>
@@ -229,9 +198,7 @@ const MyKeysList = ({ refreshKeys }) => {
 											</Button>
 											<Button
 												color='red'
-												onClick={() =>
-													deleteKey(item.KeypairID, item.Name)
-												}>
+												onClick={() => deleteKey(item.KeypairID, item.Name)}>
 												<Icon name='checkmark' />
 												Delete
 											</Button>
@@ -242,8 +209,7 @@ const MyKeysList = ({ refreshKeys }) => {
 						))}
 						{loadedKeys.length !== 0 && location.pathname === '/' && (
 							<Message style={{ textAlign: 'center' }}>
-								Click <Link onClick={() => toKeysPage()}>here</Link> to
-								create more keys.
+								Click <Link onClick={() => toKeysPage()}>here</Link> to create more keys.
 							</Message>
 						)}
 					</List>
@@ -282,46 +248,30 @@ const MyKeysList = ({ refreshKeys }) => {
 												cursor: 'pointer'
 										  }
 								}>
-								<List.Icon
-									name='key'
-									size='large'
-									verticalAlign='middle'
-								/>
+								<List.Icon name='key' size='large' verticalAlign='middle' />
 								<List.Content
-									onClick={() =>
-										handleActiveKey(
-											key.ID,
-											key.keyName,
-											key.publicKey
-										)
-									}>
+									onClick={() => handleActiveKey(key.ID, key.keyName, key.publicKey)}>
 									<List.Header>{key.keyName}</List.Header>
 									<List.Description>
 										Owner: <b>{key.keyOwner}</b>
 									</List.Description>
-									<List.Description>
-										Length: {key.keyLength}
-									</List.Description>
+									<List.Description>Length: {key.keyLength}</List.Description>
 								</List.Content>
 								{location.pathname === '/keys' && (
 									<List.Icon
 										name='trash alternate outline'
 										size='large'
 										floated='right'
-										size='large'
 										verticalAlign='middle'
 										negative
-										onClick={() =>
-											removePublicKey(key.ID, key.keyName)
-										}
+										onClick={() => removePublicKey(key.ID, key.keyName)}
 									/>
 								)}
 							</List.Item>
 						))}
 						{loadedPublicKeys.length !== 0 && (
 							<Message style={{ textAlign: 'center' }}>
-								Click <Link to='/users'>here</Link> to add more public
-								keys.
+								Click <Link to='/users'>here</Link> to add more public keys.
 							</Message>
 						)}
 					</List>
@@ -333,9 +283,7 @@ const MyKeysList = ({ refreshKeys }) => {
 	return (
 		<Tab
 			panes={listPanes}
-			defaultActiveIndex={
-				selectedKey.PublicKey && !selectedKey.PrivateKey ? 1 : 0
-			}
+			defaultActiveIndex={selectedKey.PublicKey && !selectedKey.PrivateKey ? 1 : 0}
 		/>
 	);
 };

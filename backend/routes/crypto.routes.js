@@ -1,7 +1,7 @@
-module.exports = (app) => {
+module.exports = app => {
 	const Crypto = require('../controllers/crypto.controller');
-	const router = require('express').Router();
 	const jwtMiddleware = require('../middlewares/check.token');
+	const router = require('express').Router();
 
 	// Encrypt text
 	router.post('/encrypt', jwtMiddleware.checkToken, Crypto.encryptText);
@@ -9,5 +9,5 @@ module.exports = (app) => {
 	// Decrypt text
 	router.post('/decrypt', jwtMiddleware.checkToken, Crypto.decryptText);
 
-	app.use('/api', router);
+	app.use(router);
 };

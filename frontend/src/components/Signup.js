@@ -1,14 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from '../hooks/form-hook';
-import {
-	VALIDATOR_EMAIL,
-	VALIDATOR_MINLENGTH,
-	VALIDATOR_REQUIRE
-} from '../util/validators';
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../util/validators';
 import Input from './FormElements/Input';
 
-import { Form, Button, Message, Segment, Icon } from 'semantic-ui-react';
+import { Form, Message, Segment, Icon } from 'semantic-ui-react';
 
 const Signup = ({ componentSwap }) => {
 	const [errorMessage, setError] = useState('');
@@ -35,7 +31,7 @@ const Signup = ({ componentSwap }) => {
 	const authSubmitHandler = event => {
 		event.preventDefault();
 		axios
-			.post('http://localhost:8080/api/signup', {
+			.post('http://localhost:8080/signup', {
 				username: formState.inputs.username.value,
 				email: formState.inputs.email.value,
 				password: formState.inputs.password.value
@@ -68,7 +64,7 @@ const Signup = ({ componentSwap }) => {
 							element='input'
 							id='username'
 							type='text'
-							label='Your username'
+							label='Username'
 							validators={[VALIDATOR_REQUIRE()]}
 							errorText='Please enter a username.'
 							onInput={inputHandler}
@@ -80,7 +76,7 @@ const Signup = ({ componentSwap }) => {
 							element='input'
 							id='email'
 							type='email'
-							label='E-Mail'
+							label='E-mail'
 							validators={[VALIDATOR_EMAIL()]}
 							errorText='Please enter a valid email address.'
 							onInput={inputHandler}
@@ -96,7 +92,7 @@ const Signup = ({ componentSwap }) => {
 							validators={[VALIDATOR_MINLENGTH(5)]}
 							errorText='Please enter a valid password, at least 5 characters.'
 							onInput={inputHandler}
-							placeholder='Choose a password'
+							placeholder='Password'
 						/>
 					</Form.Field>
 					<Form.Button
@@ -118,8 +114,10 @@ const Signup = ({ componentSwap }) => {
 						</Message>
 					)}
 					<Message>
-						Already have an account?{' '}
+						Already have an account?
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 						<a href='#' onClick={componentSwap}>
+							{' '}
 							Login
 						</a>
 					</Message>

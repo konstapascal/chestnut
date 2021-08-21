@@ -12,25 +12,18 @@ exports.getMyKeys = (req, res) => {
 
 	Keypair.findAll({
 		where: {
-			UserID: userID,
+			UserID: userID
 		},
-		attributes: [
-			'KeypairID',
-			'Name',
-			'Length',
-			'PublicKey',
-			'PrivateKey',
-			'createdAt',
-		],
+		attributes: ['KeypairID', 'Name', 'Length', 'PublicKey', 'PrivateKey', 'createdAt']
 	})
-		.then((keypairs) => {
+		.then(keypairs => {
 			let deleteKeyArray = [];
 
-			keypairs.forEach((keypair) => {
+			keypairs.forEach(keypair => {
 				deleteKeyArray.push({
 					method: 'DELETE',
 					description: `Delete keypair with id ${keypair.KeypairID}`,
-					href: url + '/api/keys/' + keypair.KeypairID,
+					href: url + '/keys/' + keypair.KeypairID
 				});
 			});
 
@@ -38,23 +31,22 @@ exports.getMyKeys = (req, res) => {
 				{
 					self: {
 						method: 'GET',
-						description:
-							'Get all keys, public and private of currently logged in user.',
-						href: url + '/api/keys/users/me',
-					},
+						description: 'Get all keys, public and private of currently logged in user.',
+						href: url + '/keys/users/me'
+					}
 				},
 				{
 					method: 'POST',
 					description: 'Generate a new keypair for currently logged in user.',
-					href: url + '/api/keys/new/users/me',
+					href: url + '/keys/new/users/me'
 				},
-				{ deleteKeyByID: deleteKeyArray },
+				{ deleteKeyByID: deleteKeyArray }
 			]);
 		})
-		.catch((err) => {
+		.catch(err => {
 			res.status(500).json({
 				status: '500 - Internal Server Error',
-				message: 'Error occured while retvieving keys: ' + err,
+				message: 'Error occured while retvieving keys: ' + err
 			});
 		});
 };
@@ -71,32 +63,32 @@ exports.getAllPublicKeysByID = (req, res) => {
 		include: [
 			{
 				model: Keypair,
-				attributes: ['KeypairID', 'Name', 'Length', 'PublicKey'],
-			},
-		],
+				attributes: ['KeypairID', 'Name', 'Length', 'PublicKey']
+			}
+		]
 	})
-		.then((user) => {
+		.then(user => {
 			if (user != 0) {
 				return res.status(200).json({ status: '200 - OK', user }, [
 					{
 						self: {
 							method: 'GET',
 							description: 'Get all public keys of 1 user by id',
-							href: url + '/api/keys/users/' + userID,
-						},
-					},
+							href: url + '/keys/users/' + userID
+						}
+					}
 				]);
 			} else {
 				return res.status(404).json({
 					status: '404 - Not Found',
-					message: `User with id of ${userId} was not found or does not have any keys.`,
+					message: `User with id of ${userId} was not found or does not have any keys.`
 				});
 			}
 		})
-		.catch((err) => {
+		.catch(err => {
 			res.status(500).json({
 				status: '500 - Internal Server Error',
-				message: 'Error occured while retrieving keys: ' + err,
+				message: 'Error occured while retrieving keys: ' + err
 			});
 		});
 };
@@ -109,34 +101,34 @@ exports.getAllPublicKeys = (req, res) => {
 	User.findAll({
 		where: {
 			ID: {
-				[Op.ne]: userId,
-			},
+				[Op.ne]: userId
+			}
 		},
 		attributes: ['ID', 'Username'],
 		include: [
 			{
 				model: Keypair,
-				attributes: ['KeypairID', 'Name', 'Length', 'PublicKey'],
-			},
-		],
+				attributes: ['KeypairID', 'Name', 'Length', 'PublicKey']
+			}
+		]
 	})
-		.then((users) => {
+		.then(users => {
 			let idArray = [];
 			let getKeysByUserIdArray = [];
 
 			// Populate array with all unique user id's
-			users.forEach((user) => {
+			users.forEach(user => {
 				if (idArray.indexOf(user.ID) === -1) {
 					idArray.push(user.ID);
 				}
 			});
 
 			// Push object for each user id
-			idArray.forEach((userId) => {
+			idArray.forEach(userId => {
 				getKeysByUserIdArray.push({
 					method: 'GET',
 					description: `Get all public keys of user with id ${userId}`,
-					href: url + '/api/keys/users/' + userId,
+					href: url + '/keys/users/' + userId
 				});
 			});
 
@@ -145,26 +137,25 @@ exports.getAllPublicKeys = (req, res) => {
 					{
 						self: {
 							method: 'GET',
-							description:
-								'Get all public keys and usernames of all registered users.',
-							href: url + '/api/keys',
-						},
+							description: 'Get all public keys and usernames of all registered users.',
+							href: url + '/keys'
+						}
 					},
 					{
-						getKeysByUserId: getKeysByUserIdArray,
-					},
+						getKeysByUserId: getKeysByUserIdArray
+					}
 				]);
 			} else {
 				res.status(404).json({
 					status: '404 - Not Found',
-					message: 'No keys found.',
+					message: 'No keys found.'
 				});
 			}
 		})
-		.catch((err) => {
+		.catch(err => {
 			res.status(500).json({
 				status: '500 - Internal Server Error',
-				message: 'Error occured while retrieving public keys: ' + err,
+				message: 'Error occured while retrieving public keys: ' + err
 			});
 		});
 };
@@ -185,7 +176,7 @@ exports.createKey = (req, res) => {
 		return res.status(400).json({
 			status: '400 - Bad Request',
 			message:
-				'All fields are required and must be filled (name, type, length, publicKey, privateKey).',
+				'All fields are required and must be filled (name, type, length, publicKey, privateKey).'
 		});
 	}
 
@@ -196,7 +187,7 @@ exports.createKey = (req, res) => {
 		Length: length,
 		PublicKey: publicKey,
 		PrivateKey: privateKey,
-		UserID: userID,
+		UserID: userID
 	};
 
 	// Run query to save schema in the database
@@ -205,24 +196,23 @@ exports.createKey = (req, res) => {
 			res.status(201).json(
 				{
 					status: '201 - Created',
-					message: `Keypair with the name ${name} was created successfully.`,
+					message: `Keypair with the name ${name} was created successfully.`
 				},
 				[
 					{
 						self: {
 							method: 'POST',
-							description:
-								'Create new keypair for the currently logged in user.',
-							href: url + '/api/keys/new/users/me',
-						},
-					},
+							description: 'Create new keypair for the currently logged in user.',
+							href: url + '/keys/new/users/me'
+						}
+					}
 				]
 			);
 		})
-		.catch((err) => {
+		.catch(err => {
 			res.status(500).json({
 				status: '500 - Internal Server Error',
-				message: 'Error occurred while creating keypair: ' + err,
+				message: 'Error occurred while creating keypair: ' + err
 			});
 		});
 };
@@ -236,50 +226,49 @@ exports.deleteKey = async (req, res) => {
 
 	// Check for keypair entry with key ID and user ID, proving ownership of key
 	const getUserID = await Keypair.findOne({
-		where: { UserID: userID, KeypairID: keyID },
+		where: { UserID: userID, KeypairID: keyID }
 	});
 
 	// User does not own the keypair and therefore is not allowed to delete it
 	if (!getUserID) {
 		return res.status(403).json({
 			status: '403 - Forbidden',
-			message: 'You do not have the permissions to delete this keypair.',
+			message: 'You do not have the permissions to delete this keypair.'
 		});
 	}
 
 	// Delete key
 	Keypair.destroy({
-		where: { KeypairID: keyID },
+		where: { KeypairID: keyID }
 	})
-		.then((keypair) => {
+		.then(keypair => {
 			if (keypair) {
 				res.status(200).json(
 					{
 						status: '200 - OK',
-						message: 'Keypair was deleted successfully.',
+						message: 'Keypair was deleted successfully.'
 					},
 					[
 						{
 							self: {
 								method: 'POST',
-								description:
-									'Create new keypair for the currently logged in user.',
-								href: url + '/api/keys/new/users/me',
-							},
-						},
+								description: 'Create new keypair for the currently logged in user.',
+								href: url + '/keys/new/users/me'
+							}
+						}
 					]
 				);
 			} else {
 				res.status(404).json({
 					status: '404 - Not Found',
-					message: `Keypair with id ${keyID} was not found.`,
+					message: `Keypair with id ${keyID} was not found.`
 				});
 			}
 		})
-		.catch((err) => {
+		.catch(err => {
 			res.status(500).json({
 				status: '500 - Internal Server Error',
-				message: `Could not delete keypair with id ${keyID}: ` + err,
+				message: `Could not delete keypair with id ${keyID}: ` + err
 			});
 		});
 };

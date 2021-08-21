@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Grid, Header, Button } from 'semantic-ui-react';
+import React from 'react';
+import { Header, Button } from 'semantic-ui-react';
 
 const LandingPageDescription = ({ componentSwap }) => {
 	return (
@@ -10,9 +10,7 @@ const LandingPageDescription = ({ componentSwap }) => {
 					Chestnut is an educational PKI web application. <br />
 					We assist students in learning the fundamentals of PKI.
 				</p>
-				<p className='subHeader'>
-					Press the demo button to try some of its features.
-				</p>
+				<p className='subHeader'>Press the demo button to try some of its features.</p>
 			</Header.Subheader>
 			<br />
 			<Button onClick={componentSwap} style={{ backgroundColor: '#14872f' }}>

@@ -5,22 +5,22 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.INTEGER,
 			autoIncrement: true,
 			unique: true,
-			primaryKey: true,
+			primaryKey: true
 		},
 		Username: {
 			type: Sequelize.STRING,
 			unique: true,
 			allowNull: false,
 			validate: {
-				notEmpty: true,
-			},
+				notEmpty: true
+			}
 		},
 		Password: {
 			type: Sequelize.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: true,
-			},
+				notEmpty: true
+			}
 		},
 		Email: {
 			type: Sequelize.STRING,
@@ -29,14 +29,14 @@ module.exports = (sequelize, Sequelize) => {
 			lowercase: true,
 			validate: {
 				isEmail: true,
-				notEmpty: true,
-			},
+				notEmpty: true
+			}
 		},
 		IsAdmin: {
 			allowNull: false,
 			type: Sequelize.BOOLEAN,
-			defaultValue: false,
-		},
+			defaultValue: false
+		}
 	});
 
 	return User;

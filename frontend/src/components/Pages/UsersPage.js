@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
-import {
-	List,
-	Item,
-	Grid,
-	Input,
-	Button,
-	Message,
-	Icon
-} from 'semantic-ui-react';
+import { List, Item, Grid, Input, Button, Message, Icon } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth-context';
 
 const UsersPage = () => {
@@ -18,44 +10,38 @@ const UsersPage = () => {
 	const [loadedPublicKeys, setLoadedPublicKeys] = useState([]);
 	const [search, setSearch] = useState('');
 
-	const fetchUsers = async () => {
-		await Axios.get('http://localhost:8080/api/keys/', {
-			headers: {
-				Authorization: auth.token
-			}
-		})
-			.then(response => {
-				setLoadedUsers(response.data.users);
-				setFilteredUsers(response.data.users);
-			})
-			.catch(err => {
-				console.log(err.response.data);
-			});
-	};
-
 	useEffect(() => {
+		const fetchUsers = () => {
+			Axios.get('http://localhost:8080/keys/', {
+				headers: {
+					Authorization: auth.token
+				}
+			})
+				.then(response => {
+					setLoadedUsers(response.data.users);
+					setFilteredUsers(response.data.users);
+				})
+				.catch(err => {
+					console.log(err.response.data);
+				});
+		};
+
 		fetchUsers();
-	}, []);
+	}, [auth.token]);
 
 	useEffect(() => {
 		const storageKeys = JSON.parse(localStorage.getItem('addedPublicKeys'));
 
-		if (storageKeys == null) {
-			// Make new local storage field if there isn't one
-			return localStorage.setItem('addedPublicKeys', JSON.stringify([]));
-		} else {
-			// If there is local storage data, add it to state
-			setLoadedPublicKeys(storageKeys);
-		}
+		if (!storageKeys) return localStorage.setItem('addedPublicKeys', JSON.stringify([]));
+
+		setLoadedPublicKeys(storageKeys);
 	}, []);
 
 	useEffect(() => {
 		setFilteredUsers(
-			loadedUsers.filter(user =>
-				user.Username.toLowerCase().includes(search.toLowerCase())
-			)
+			loadedUsers.filter(user => user.Username.toLowerCase().includes(search.toLowerCase()))
 		);
-	}, [search]);
+	}, [search, loadedUsers]);
 
 	// Add key to state and local storage
 	const addPublicKey = (keyOwner, keyID, keyName, keyLength, publicKey) => {
@@ -83,8 +69,8 @@ const UsersPage = () => {
 		<div style={{ margin: '3rem' }}>
 			<h1>List of users</h1>
 			<p>
-				This is a list of all registered users and their public keys. You
-				may filter users and easily add their public keys to your keys list.
+				This is a list of all registered users and their public keys. You may filter users and
+				easily add their public keys to your keys list.
 			</p>
 			<Grid stackable columns={1}>
 				<Grid.Column style={{ width: '40vw', minWidth: '400px' }}>
@@ -149,16 +135,10 @@ const UsersPage = () => {
 														size='small'
 														floated='right'
 													/>
-													<List.Icon
-														name='key'
-														size='large'
-														verticalAlign='middle'
-													/>
+													<List.Icon name='key' size='large' verticalAlign='middle' />
 													<Item.Content>
 														<List.Header>{key.Name}</List.Header>
-														<List.Description>
-															Length: {key.Length}
-														</List.Description>
+														<List.Description>Length: {key.Length}</List.Description>
 													</Item.Content>
 												</List.Item>
 											</List.List>

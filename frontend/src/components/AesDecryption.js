@@ -11,14 +11,9 @@ const AesDecryption = () => {
 
 	useEffect(() => {
 		const encrypt = () => {
-			let exampleString = userInput;
-
-			// the password used for derviation of a key, assign your password here
-			// if none is assigned a random one is generated
 			let password = userPassword;
-			if (password === '') {
-				return;
-			}
+
+			if (password === '') return;
 
 			// derive key with password and salt
 			// keylength adheres to the "ECRYPT-CSA Recommendations" on "www.keylength.com"
@@ -38,9 +33,7 @@ const AesDecryption = () => {
 				iv: iv,
 				tag: tag
 			});
-			decipher.update(
-				forge.util.createBuffer(forge.util.decode64(userInput))
-			);
+			decipher.update(forge.util.createBuffer(forge.util.decode64(userInput)));
 			decipher.finish();
 			let decrypted = decipher.output.data;
 
@@ -54,8 +47,8 @@ const AesDecryption = () => {
 		<div style={{ margin: '1.5rem' }}>
 			<DecryptionTooltip />
 			<p>
-				Paste in your decrypted data, write in the correct password and it
-				will be decrypted using the AES algorithm.
+				Paste in your decrypted data, write in the correct password and it will be decrypted
+				using the AES algorithm.
 			</p>
 
 			<Form>
