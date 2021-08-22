@@ -43,8 +43,6 @@ const GenerateKey = ({ handleRefresh }) => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [statusMessage, setStatusMessage] = useState('');
 
-	const [isLoading, setIsLoading] = useState(false);
-
 	const authHeader = {
 		headers: {
 			Authorization: auth.token
@@ -56,9 +54,7 @@ const GenerateKey = ({ handleRefresh }) => {
 		setStatusMessage('');
 
 		// Check if key name is empty
-		if (keyName === '') {
-			return setErrorMessage('Name cannot be empty!');
-		}
+		if (keyName === '') return setErrorMessage('Name cannot be empty!');
 
 		const keypair = pki.rsa.generateKeyPair({
 			bits: keyLength,
@@ -79,8 +75,7 @@ const GenerateKey = ({ handleRefresh }) => {
 				},
 				authHeader
 			)
-			.then(res => {
-				setIsLoading(false);
+			.then(() => {
 				setStatusMessage(`Keypair ${keyName} was generated successfully!`);
 				handleRefresh();
 			})
@@ -106,26 +101,20 @@ const GenerateKey = ({ handleRefresh }) => {
 						}}
 					/>
 				</Form.Field>
-				<Form.Select
-					label='Type'
-					defaultValue={typeOptions[0].value}
-					options={typeOptions}></Form.Select>
+
+				<Form.Select label='Type' defaultValue={typeOptions[0].value} options={typeOptions} />
+
 				<Form.Select
 					label='Length'
 					options={lengthOptions}
 					defaultValue={lengthOptions[1].value}
 					value={keyLength}
-					onChange={(e, { value }) => setKeyLength(value)}></Form.Select>
+					onChange={(e, data) => setKeyLength(data.value)}
+				/>
 
-				{isLoading ? (
-					<Button onClick={generateKey} color='green' disabled>
-						Generate
-					</Button>
-				) : (
-					<Button onClick={generateKey} color='green'>
-						Generate
-					</Button>
-				)}
+				<Button onClick={generateKey} color='green'>
+					Generate
+				</Button>
 
 				{errorMessage && (
 					<Message error visible>
