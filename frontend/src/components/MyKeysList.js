@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Axios from 'axios';
-import { Menu, List, Tab, Icon, Button, Modal, Header, Message } from 'semantic-ui-react';
+import { Menu, List, Tab, Icon, Message } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import KeysWarningTooltip from './Tooltips/KeysWarningTooltip';
-import { useHistory } from 'react-router-dom';
 
 import { AuthContext } from '../context/auth-context';
 import { SelectedKeyContext } from '../context/selected-key-context';
+import DeleteKeyModal from './DeleteKeyModal';
 
 const MyKeysList = ({ refreshKeys }) => {
 	const auth = useContext(AuthContext);
@@ -20,9 +20,11 @@ const MyKeysList = ({ refreshKeys }) => {
 	// eslint-disable-next-line no-unused-vars
 	const [activeKey, setActiveKey] = useState(selectedKey.Name);
 
+	const getUrl = 'http://localhost:8080/keys/users/me';
+	const location = useLocation();
+
 	const handleDeleteModalOpen = modalID => setModalOpen(modalID);
 	const handleDeleteModalClose = () => setModalOpen(false);
-
 	const handleActiveKey = (ID, Name, publicKey, privateKey = '') => {
 		setActiveKey(ID);
 		setSelectedKey({
@@ -32,10 +34,6 @@ const MyKeysList = ({ refreshKeys }) => {
 			PrivateKey: privateKey
 		});
 	};
-
-	const getUrl = 'http://localhost:8080/keys/users/me';
-	const location = useLocation();
-	const history = useHistory();
 
 	const fetchMyKeys = useCallback(() => {
 		Axios.get(getUrl, {
@@ -88,16 +86,7 @@ const MyKeysList = ({ refreshKeys }) => {
 				Authorization: auth.token
 			}
 		})
-			.then(() => {
-				return Axios.get(getUrl, {
-					headers: {
-						Authorization: auth.token
-					}
-				});
-			})
-			.then(response => {
-				setLoadedKeys(response.data.keypairs);
-			})
+			.then(() => fetchMyKeys())
 			.catch(err => {
 				console.log(err.response.data);
 			});
@@ -120,11 +109,6 @@ const MyKeysList = ({ refreshKeys }) => {
 		localStorage.setItem('addedPublicKeys', JSON.stringify(newLoadedPublicKeys));
 	};
 
-	const toKeysPage = () => {
-		setSelectedKey('');
-		history.push('/keys');
-	};
-
 	const listPanes = [
 		{
 			menuItem: <Menu.Item>My Keypairs</Menu.Item>,
@@ -138,7 +122,11 @@ const MyKeysList = ({ refreshKeys }) => {
 								{location.pathname === '/' && (
 									<span>
 										{' '}
-										Click <Link onClick={() => toKeysPage()}>here</Link> to make one.
+										Click{' '}
+										<Link onClick={() => setSelectedKey('')} to='/keys'>
+											here
+										</Link>{' '}
+										to make one.
 									</span>
 								)}
 							</Message>
@@ -159,7 +147,7 @@ const MyKeysList = ({ refreshKeys }) => {
 												cursor: 'pointer'
 										  }
 								}>
-								<List.Icon name='key' size='large' verticalAlign='middle' />
+								<List.Icon name='key' size='large' verticalalign='middle' />
 								<List.Content
 									onClick={() =>
 										handleActiveKey(
@@ -175,47 +163,25 @@ const MyKeysList = ({ refreshKeys }) => {
 										Created: {moment(item.createdAt).local().format('DD MMM YYYY, HH:mm')}
 									</List.Description>
 								</List.Content>
-
 								{location.pathname === '/keys' && (
-									<Modal
-										trigger={
-											<List.Icon
-												name='trash alternate outline'
-												size='large'
-												floated='right'
-												verticalAlign='middle'
-												negative
-												onClick={() => handleDeleteModalOpen(item.KeypairID)}
-											/>
-										}
-										size='tiny'
-										open={modalOpen === item.KeypairID}
-										onClose={handleDeleteModalClose}
-										closeIcon>
-										<Header icon='warning sign' color='red' content='Delete key?' />
-										<Modal.Content>
-											<p>
-												Are you sure you want to delete <b>{item.Name}</b>?
-											</p>
-										</Modal.Content>
-										<Modal.Actions>
-											<Button onClick={handleDeleteModalClose}>
-												<Icon name='remove' /> Cancel
-											</Button>
-											<Button
-												color='red'
-												onClick={() => deleteKey(item.KeypairID, item.Name)}>
-												<Icon name='checkmark' />
-												Delete
-											</Button>
-										</Modal.Actions>
-									</Modal>
+									<DeleteKeyModal
+										handleDeleteModalOpen={handleDeleteModalOpen}
+										handleDeleteModalClose={handleDeleteModalClose}
+										deleteKey={deleteKey}
+										KeypairID={item.KeypairID}
+										Name={item.Name}
+										modalOpen={modalOpen}
+									/>
 								)}
 							</List.Item>
 						))}
 						{loadedKeys.length !== 0 && location.pathname === '/' && (
 							<Message style={{ textAlign: 'center' }}>
-								Click <Link onClick={() => toKeysPage()}>here</Link> to create more keys.
+								Click{' '}
+								<Link onClick={() => setSelectedKey('')} to='/keys'>
+									here
+								</Link>{' '}
+								to create more keys.
 							</Message>
 						)}
 					</List>

@@ -91,7 +91,9 @@ const UsersPage = () => {
 							{filteredUsers.length === 0 && (
 								<Message>
 									<Icon name='user' size='large' />
-									No user results for {search}.
+									{!search
+										? 'There are no other registered users.'
+										: `No search results for ${search}.`}
 								</Message>
 							)}
 							{loadedUsers &&

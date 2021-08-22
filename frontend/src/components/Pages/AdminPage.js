@@ -1,60 +1,40 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Axios from 'axios';
 import { List, Item, Grid, Input, Icon, Button, Modal, Header, Message } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth-context';
+import DeleteUserModal from '../DeleteUserModal';
 
 const AdminPage = () => {
 	const auth = useContext(AuthContext);
+
 	const [loadedUsers, setLoadedUsers] = useState([]);
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [search, setSearch] = useState('');
 	const [ModalOpen, setModalOpen] = useState(false);
 
-	const authHeader = {
-		headers: {
-			Authorization: auth.token
-		}
-	};
-
-	const getUrl = 'http://localhost:8080/users';
-
 	// Functions for opening/closing modal
 	const handleModalOpen = modalID => setModalOpen(modalID);
 	const handleModalClose = () => setModalOpen(false);
 
-	// DELETE an user
-	const deleteUser = UserID => {
-		const deleteUrl = 'http://localhost:8080/users/' + UserID;
-
-		Axios.delete(deleteUrl, authHeader)
-			.then(() => {
-				return Axios.get(getUrl, authHeader);
-			})
+	const fetchUsers = useCallback(() => {
+		Axios.get('http://localhost:8080/users', {
+			headers: {
+				Authorization: auth.token
+			}
+		})
 			.then(response => {
 				setLoadedUsers(response.data.users);
 				setFilteredUsers(response.data.users);
-				handleModalClose();
 			})
 			.catch(err => {
 				console.log(err.response.data);
 			});
-	};
+	}, [auth.token]);
 
 	// GET all users on render
 	useEffect(() => {
-		const fetchUsers = () => {
-			Axios.get(getUrl, authHeader)
-				.then(response => {
-					setLoadedUsers(response.data.users);
-					setFilteredUsers(response.data.users);
-				})
-				.catch(err => {
-					console.log(err.response.data);
-				});
-		};
-
 		fetchUsers();
-	}, [authHeader]);
+	}, [fetchUsers]);
 
 	useEffect(() => {
 		loadedUsers &&
@@ -62,6 +42,22 @@ const AdminPage = () => {
 				loadedUsers.filter(user => user.Username.toLowerCase().includes(search.toLowerCase()))
 			);
 	}, [search, loadedUsers]);
+
+	// DELETE an user
+	const deleteUser = UserID => {
+		const deleteUrl = 'http://localhost:8080/users/' + UserID;
+
+		Axios.delete(deleteUrl, {
+			headers: {
+				Authorization: auth.token
+			}
+		})
+			.then(() => fetchUsers())
+			.then(() => handleModalClose())
+			.catch(err => {
+				console.log(err.response.data);
+			});
+	};
 
 	return (
 		<div style={{ margin: '3rem' }}>
@@ -86,7 +82,9 @@ const AdminPage = () => {
 							{filteredUsers.length === 0 && (
 								<Message>
 									<Icon name='user' size='large' />
-									No user results for {search}.
+									{!search
+										? 'There are no other registered users.'
+										: `No search results for ${search}.`}
 								</Message>
 							)}
 							{filteredUsers.map(item => (
@@ -94,38 +92,14 @@ const AdminPage = () => {
 									<List.Icon name='user' size='large' verticalAlign='middle' />
 									<Item.Content>
 										<List.Header>{item.Username}</List.Header>
-										<Modal
-											trigger={
-												<Button
-													compact
-													negative
-													content='Delete user'
-													floated='right'
-													onClick={() => handleModalOpen(item.ID)}
-												/>
-											}
-											open={ModalOpen === item.ID}>
-											<Header icon='warning sign' color='red' content='Delete user?' />
-											<Modal.Content>
-												<p>
-													This is a <b>permanent</b> action and will delete both the
-													user and his keys.
-												</p>
-												<p>
-													Are you sure you want to delete <b>{item.Username}</b>?
-												</p>
-											</Modal.Content>
-											<Modal.Actions>
-												<Button onClick={handleModalClose}>
-													<Icon name='remove' />
-													Cancel
-												</Button>
-												<Button color='red' onClick={() => deleteUser(item.ID)}>
-													<Icon name='checkmark' />
-													Delete
-												</Button>
-											</Modal.Actions>
-										</Modal>
+										<DeleteUserModal
+											handleModalOpen={handleModalOpen}
+											handleModalClose={handleModalClose}
+											ModalOpen={ModalOpen}
+											deleteUser={deleteUser}
+											ID={item.ID}
+											Username={item.Username}
+										/>
 										<List.Description>id: {item.ID}</List.Description>
 										<List.Description>{item.Email}</List.Description>
 									</Item.Content>
