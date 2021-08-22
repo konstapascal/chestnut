@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Axios from 'axios';
 import { Menu, List, Tab, Icon, Button, Modal, Header, Message } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
@@ -20,12 +20,6 @@ const MyKeysList = ({ refreshKeys }) => {
 	// eslint-disable-next-line no-unused-vars
 	const [activeKey, setActiveKey] = useState(selectedKey.Name);
 
-	const authHeader = {
-		headers: {
-			Authorization: auth.token
-		}
-	};
-
 	const handleDeleteModalOpen = modalID => setModalOpen(modalID);
 	const handleDeleteModalClose = () => setModalOpen(false);
 
@@ -43,21 +37,25 @@ const MyKeysList = ({ refreshKeys }) => {
 	const location = useLocation();
 	const history = useHistory();
 
+	const fetchMyKeys = useCallback(() => {
+		Axios.get(getUrl, {
+			headers: {
+				Authorization: auth.token
+			}
+		})
+			.then(response => {
+				setLoadedKeys(response.data.keypairs);
+			})
+			.catch(err => {
+				setLoadedKeys([]);
+				console.log(err.response.data);
+			});
+	}, [auth.token]);
+
 	useEffect(() => {
 		// GET all my keys request
-		const fetchMyKeys = () => {
-			Axios.get(getUrl, authHeader)
-				.then(response => {
-					setLoadedKeys(response.data.keypairs);
-				})
-				.catch(err => {
-					setLoadedKeys([]);
-					console.log(err.response.data);
-				});
-		};
-
 		fetchMyKeys();
-	}, [authHeader]);
+	}, [fetchMyKeys, refreshKeys]);
 
 	// Get saved public keys from localstorage
 	useEffect(() => {
@@ -85,9 +83,17 @@ const MyKeysList = ({ refreshKeys }) => {
 			});
 		}
 
-		Axios.delete(deleteUrl, authHeader)
+		Axios.delete(deleteUrl, {
+			headers: {
+				Authorization: auth.token
+			}
+		})
 			.then(() => {
-				return Axios.get(getUrl, authHeader);
+				return Axios.get(getUrl, {
+					headers: {
+						Authorization: auth.token
+					}
+				});
 			})
 			.then(response => {
 				setLoadedKeys(response.data.keypairs);
@@ -127,7 +133,7 @@ const MyKeysList = ({ refreshKeys }) => {
 					<List divided relaxed>
 						{loadedKeys.length === 0 && (
 							<Message style={{ textAlign: 'center' }}>
-								<Icon name='key' size='large' verticalAlign='middle' />
+								<Icon name='key' size='large' verticalalign='middle' />
 								No keypairs.
 								{location.pathname === '/' && (
 									<span>

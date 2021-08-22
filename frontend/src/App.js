@@ -95,7 +95,7 @@ const App = () => {
 		<AuthContext.Provider value={defaultAuthValues}>
 			<SelectedKeyContext.Provider value={defaultSelectedKeyValues}>
 				<BrowserRouter>
-					<Navbar />
+					{loggedIn && <Navbar />}
 					{routes}
 				</BrowserRouter>
 			</SelectedKeyContext.Provider>

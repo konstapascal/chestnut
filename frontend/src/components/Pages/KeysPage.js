@@ -10,7 +10,7 @@ const KeysPage = () => {
 	const { selectedKey } = useContext(SelectedKeyContext);
 	const [refreshKeys, setRefreshKeys] = useState(false);
 
-	const handleRefresh = () => setRefreshKeys(!refreshKeys);
+	const handleRefresh = () => setRefreshKeys(prev => !prev);
 
 	return (
 		<div style={{ margin: '3rem' }}>
@@ -31,8 +31,7 @@ const KeysPage = () => {
 								{selectedKey.Name ? selectedKey.Name : 'Select keypair'}
 							</Header>
 							<p style={{ paddingBottom: '1rem' }}>
-								Select a keypair from the list on the left to view its
-								keys.
+								Select a keypair from the list on the left to view its keys.
 							</p>
 							<Form.TextArea
 								spellCheck={false}
