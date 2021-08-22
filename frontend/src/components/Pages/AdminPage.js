@@ -52,8 +52,10 @@ const AdminPage = () => {
 				Authorization: auth.token
 			}
 		})
-			.then(() => fetchUsers())
-			.then(() => handleModalClose())
+			.then(() => {
+				fetchUsers();
+				handleModalClose();
+			})
 			.catch(err => {
 				console.log(err.response.data);
 			});
