@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Axios from 'axios';
-import { List, Item, Grid, Input, Icon, Button, Modal, Header, Message } from 'semantic-ui-react';
+import { List, Item, Grid, Input, Icon, Message } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth-context';
 import DeleteUserModal from '../DeleteUserModal';
 
